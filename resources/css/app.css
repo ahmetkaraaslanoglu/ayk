@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn {
+    @apply p-10 bg-red-500;
+}
+.btn2 {
+    @apply absolute right-1 m-5
+}
+
