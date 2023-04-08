@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             SchoolClass::factory(5)->create([
                 'school_id' => $school->id,
             ])->each(function (SchoolClass $schoolClass) {
-                SchoolClassHomework::factory()->create(['school_class_id' => $schoolClass->id]);
+                SchoolClassHomework::factory(10)->create(['school_class_id' => $schoolClass->id]);
                 SchoolClassExam::factory()->create(['school_class_id' => $schoolClass->id]);
                 Student::factory(5)->create([
                     'school_class_id' => $schoolClass->id,

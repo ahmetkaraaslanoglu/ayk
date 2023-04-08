@@ -13,7 +13,8 @@ class HomeworkController extends Controller
      */
     public function index()
     {
-        $homeworks = auth('student')->user()->school_class->homeworks;
+        $homeworks = auth('student')->user()->homeworks;
+//        dd($homeworks);
         return response()->view('web.homework.homeworks', compact('homeworks'));
     }
 

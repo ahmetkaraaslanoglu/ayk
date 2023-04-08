@@ -42,10 +42,15 @@ class Student extends Model implements Authenticatable
 
     }
 
-    public function school_class(): HasOne
-    {
-        return $this->hasOne(SchoolClass::class, 'id', 'school_class_id');
+//    public function school_class(): HasOne
+//    {
+//        return $this->hasOne(SchoolClass::class, 'id', 'school_class_id');
+//
+//    }
 
+    public function homeworks(): BelongsToMany
+    {
+        return $this->belongsToMany(Homework::class, 'school_class_homework', 'school_class_id', 'homework_id');
     }
 
 

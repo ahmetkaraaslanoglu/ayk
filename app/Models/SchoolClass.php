@@ -31,14 +31,21 @@ class SchoolClass extends Model
         return $this->hasMany(Student::class);
     }
 
+//    public function homeworks(): BelongsToMany
+//    {
+//        return $this->belongsToMany(
+//            Homework::class,
+//            'school_class_homework',
+//            'homework_id',
+//            'school_class_id',
+//        );
+//    }
+
     public function homeworks(): BelongsToMany
     {
-        return $this->belongsToMany(
-            Homework::class,
-            'school_class_homework',
-            'homework_id',
-            'school_class_id',
-        );
+        return $this->belongsToMany(Homework::class, 'school_class_homework')
+            ->withPivot('school_class_id')
+            ->wherePivot('school_class_id', $this->id);
     }
 
     public function exams(): BelongsToMany
