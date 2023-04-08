@@ -17,36 +17,20 @@
 
                         @foreach($homeworks as $homework)
                             <li class="w-64 inline-flex flex-col text-center lg:w-64 mb-20 mr-10">
-                                <div class="group relative">
+                                <div class="group relative bg-gray-100 rounded p-3">
                                     <div class="w-full bg-gray-200 rounded-md overflow-hidden aspect-w-1 aspect-h-1">
-                                        <img src="https://tailwindui.com/img/ecommerce-images/home-page-02-product-01.jpg" alt="Black machined steel pen with hexagonal grip and small white logo at top." class="w-full h-full object-center object-cover group-hover:opacity-75">
+                                        <img src="https://img.freepik.com/free-vector/school-supplies-books-pencils-apple_24908-56504.jpg?w=900&t=st=1680994850~exp=1680995450~hmac=47dde76ff2ad57b31097bc8ea678f7457ea761546735250efa6f53fec3d3fc04" alt="resim" class="w-full h-full object-center object-cover group-hover:opacity-75">
                                     </div>
-                                    <div class="mt-6">
-                                        <p class="text-sm text-gray-500">Black</p>
-                                        <h3 class="mt-1 font-semibold text-gray-900 product-title">
-                                            <a href="#">
-                                                <span class="absolute inset-0"></span>
-                                                {{$homework->content}}
-                                            </a>
-                                        </h3>
-                                        <p class="mt-1 text-gray-900">$35</p>
+                                    <div class="mt-2">
+                                        <p class="text-sm text-gray-500">{{$homework->lesson}}</p>
+                                        <p class="text-sm text-gray-500">{{$homework->subject}}</p>
+                                        <p class="mt-1 text-gray-900 text-xs mt-3">Oluşturulma Tarihi: {{date('d-m-Y', strtotime($homework->created_at))}}</p>
+                                        <p class="mt-1 text-gray-900 text-xs">Son Teslim Tarihi: {{date('d-m-Y', strtotime($homework->deadline))}}</p>
                                     </div>
                                 </div>
 
                                 <h4 class="sr-only">Available colors</h4>
-                                <ul role="list" class="mt-auto pt-6 flex items-center justify-center space-x-3">
-                                    <li class="w-4 h-4 rounded-full border border-black border-opacity-10" style="background-color: #111827">
-                                        <span class="sr-only"> Black </span>
-                                    </li>
 
-                                    <li class="w-4 h-4 rounded-full border border-black border-opacity-10" style="background-color: #fde68a">
-                                        <span class="sr-only"> Brass </span>
-                                    </li>
-
-                                    <li class="w-4 h-4 rounded-full border border-black border-opacity-10" style="background-color: #e5e7eb">
-                                        <span class="sr-only"> Chrome </span>
-                                    </li>
-                                </ul>
                             </li>
                         @endforeach
                     </ul>

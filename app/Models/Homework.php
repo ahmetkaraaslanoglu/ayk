@@ -15,6 +15,7 @@ class Homework extends Model
     protected $fillable = [
         'content',
         'deadline',
+        'lesson',
         'subject',
         'photo',
     ];

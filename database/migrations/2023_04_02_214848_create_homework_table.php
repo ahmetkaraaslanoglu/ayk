@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('homework', function (Blueprint $table) {
             $table->id();
+            $table->string('lesson');
             $table->string('subject');
             $table->date('deadline');
             $table->string('photo');

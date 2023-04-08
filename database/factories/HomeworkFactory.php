@@ -16,9 +16,10 @@ class HomeworkFactory extends Factory
      */
     public function definition(): array
     {
-        $subjects = array('Matematik','Edebiyat','Biyoloji','Fizik','Kimya','Tarih','Coğrafya');
+        $lessons = array('Matematik','Edebiyat','Biyoloji','Fizik','Kimya','Tarih','Coğrafya');
         return [
-            'subject' => $subjects[rand(0, count($subjects) - 1)],
+            'lesson' => $lessons[rand(0, count($lessons) - 1)],
+            'subject' => fake()->sentence,
             'content' => fake()->text,
             'deadline' => fake()->date,
             'photo' => fake()->imageUrl,

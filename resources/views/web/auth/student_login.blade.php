@@ -58,7 +58,6 @@
                 </button>
             </div>
         </form>
-        <div>deneme</div>
     </div>
 </div>
 </body>
