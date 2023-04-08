@@ -50,3 +50,7 @@ class Student extends Model implements Authenticatable
 
 
 }
+
+
+
+

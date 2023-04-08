@@ -14,6 +14,9 @@ class Homework extends Model
 
     protected $fillable = [
         'content',
+        'deadline',
+        'subject',
+        'photo',
     ];
 
     public function school_classes():BelongsToMany

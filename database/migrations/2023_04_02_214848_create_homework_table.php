@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('homework', function (Blueprint $table) {
             $table->id();
+            $table->string('subject');
+            $table->date('deadline');
+            $table->string('photo');
             $table->string('content');
             $table->timestamps();
         });

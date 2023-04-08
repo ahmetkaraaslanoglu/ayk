@@ -1,10 +1,4 @@
 <x-app-layout>
-{{--    <div>ödevler sekmesi</div>--}}
-
-{{--    <div class="mt-20">--}}
-{{--        <a href="#" class="btn">{{$homework->content}}</a>--}}
-{{--    </div>--}}
-
     <div class="bg-white">
         <div class="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
             <div class="flex-1 min-w-0">
@@ -55,9 +49,6 @@
                                 </ul>
                             </li>
                         @endforeach
-
-
-                        <!-- More products... -->
                     </ul>
                 </div>
             </div>

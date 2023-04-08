@@ -8,6 +8,7 @@
     <title>Document</title>
     @vite('resources/css/app.css')
 </head>
+
 <body>
     <div class="relative bg-white overflow-hidden">
         <div class="relative pt-6  pb-16 sm:pb-24 bg-gray-900 h-screen">
