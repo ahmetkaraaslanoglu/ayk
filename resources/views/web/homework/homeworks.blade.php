@@ -45,9 +45,7 @@
                                         @endif
                                     </div>
                                 </div>
-
                                 <h4 class="sr-only">Available colors</h4>
-
                             </li>
                         @endforeach
                     </ul>

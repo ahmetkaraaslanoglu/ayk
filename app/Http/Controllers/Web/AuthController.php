@@ -30,4 +30,10 @@ class AuthController extends Controller
             'auth' => 'şifre yada eposta yanlıi'
         ]);
     }
+
+    public function logout()
+    {
+        auth('student')->logout();
+        return redirect()->to('/login/student');
+    }
 }

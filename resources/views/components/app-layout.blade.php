@@ -55,7 +55,7 @@
                             <img class="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0" src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" alt="">
                                 <span class="flex-1 flex flex-col min-w-0">
                                     <span class="text-gray-900 text-sm font-medium truncate">{{auth('student')->user()->name}}</span>
-                                    <span class="text-gray-900 text-sm font-medium truncate">{{auth('student')->user()->school_class->school_id }}</span>
+{{--                                    <span class="text-gray-900 text-sm font-medium truncate">{{auth('student')->user()->school_class->school_id }}</span>--}}
                                 </span>
                         </span>
                         <!-- Heroicon name: solid/selector -->
@@ -65,7 +65,7 @@
                     </span>
                 </div>
             </button>
-            
+
             <!-- User account dropdown -->
             <div
                 class="px-3 relative inline-block text-left"
@@ -98,8 +98,9 @@
                         <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="options-menu-item-4">Support</a>
                     </div>
                     <div class="py-1" role="none">
-                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="options-menu-item-5">Logout</a>
+                        <a href="/logout/student" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="options-menu-item-5">Logout</a>
                     </div>
+
                 </div>
             </div>
 
@@ -117,6 +118,7 @@
                     <input type="text" name="search" id="search" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-9 sm:text-sm border-gray-300 rounded-md" placeholder="Search">
                 </div>
             </div>
+
             <!-- Navigation -->
             <nav class="px-3 mt-6">
                 <div class="space-y-1">
@@ -249,9 +251,11 @@
                                 <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="user-menu-item-3">Get desktop app</a>
                                 <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="user-menu-item-4">Support</a>
                             </div>
+
                             <div class="py-1" role="none">
-                                <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="user-menu-item-5">Logout</a>
+                                <a href="/login/student" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="user-menu-item-5">Logout</a>
                             </div>
+
                         </div>
                     </div>
                 </div>

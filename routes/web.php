@@ -21,7 +21,10 @@ Route::get('/login/{type}',[\App\Http\Controllers\Web\AuthController::class, 'vi
 Route::post('/login/{type}',[\App\Http\Controllers\Web\AuthController::class,'login']);
 
 Route::middleware('auth:student')->group(function () {
+   Route::get('/logout/{type}',[\App\Http\Controllers\Web\AuthController::class,'logout'])->name('logout');
    Route::resource('homeworks',\App\Http\Controllers\Web\Student\HomeworkController::class);
    Route::resource('exams',\App\Http\Controllers\Web\Student\ExamController::class);
    Route::get('dashboard',[\App\Http\Controllers\Web\Student\DashboardController::class,'index'])->name('dashboard');
 });
+
+
