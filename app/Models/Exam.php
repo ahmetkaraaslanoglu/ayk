@@ -11,8 +11,9 @@ class Exam extends Model
     use HasFactory;
 
     protected $fillable = [
-        'question',
-        'answer',
+        'deadline',
+        'exam_link',
+        'sender',
     ];
 
     public function school_classes():BelongsToMany

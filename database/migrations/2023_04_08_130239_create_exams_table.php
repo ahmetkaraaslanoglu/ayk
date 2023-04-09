@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('exams', function (Blueprint $table) {
             $table->id();
-            $table->string('question');
-            $table->string('answer');
+            $table->date('deadline');
+            $table->string('exam_link');
+            $table->string('sender');
             $table->timestamps();
         });
     }

@@ -16,9 +16,11 @@ class ExamFactory extends Factory
      */
     public function definition(): array
     {
+        $exam_creater = array('Ahmet Hakan Cansız','Ahmet Karaaslanoğlu','Kubilay Karakaya','Yağmur Önder','Edanur Kaplan','İsa Eken');
         return [
-            'question' => fake()->realText,
-            'answer' => fake() -> text,
+            'deadline' => fake()->date,
+            'exam_link' => fake() -> url,
+            'sender' => $exam_creater[rand(0, count($exam_creater) - 1)],
         ];
     }
 }
