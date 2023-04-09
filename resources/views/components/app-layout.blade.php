@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css','resources/js/app.js'])
     <title>AYK</title>
 
 </head>
@@ -17,8 +17,38 @@
             <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-logo-purple-500-mark-gray-700-text.svg" alt="Workflow">
         </div>
         <!-- Sidebar component, swap this element with another sidebar if you like -->
-        <div class="mt-6 h-0 flex-1 flex flex-col overflow-y-auto">
-            <div class="px-3 relative inline-block text-left">
+        <div
+            class="mt-6 h-0 flex-1 flex flex-col overflow-y-auto"
+            x-data="{
+            open: false,
+            toggle() {
+                if (this.open) {
+                    return this.close()
+                }
+
+                this.$refs.button.focus()
+
+                this.open = true
+            },
+            close(focusAfter) {
+                if (! this.open) return
+
+                this.open = false
+
+                focusAfter && focusAfter.focus()
+            }
+        }"
+            x-on:keydown.escape.prevent.stop="close($refs.button)"
+            x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+            x-id="['dropdown-button']"
+        >
+            <button
+                class="px-3 relative inline-block text-left"
+                x-ref="button"
+                x-on:click="toggle()"
+                :aria-expanded="open"
+                :aria-controls="$id('dropdown-button')"
+            >
                 <div>
                     <span class="flex w-full justify-between items-center">
                         <span class="flex min-w-0 items-center justify-between space-x-3">
@@ -34,35 +64,44 @@
                         </svg>
                     </span>
                 </div>
-            </div>
+            </button>
+            
             <!-- User account dropdown -->
-{{--            <div class="px-3 relative inline-block text-left">--}}
-{{--                <!----}}
-{{--                  Dropdown menu, show/hide based on menu state.--}}
+            <div
+                class="px-3 relative inline-block text-left"
+                x-ref="panel"
+                x-show="open"
+                x-transition.origin.top.left
+                x-on:click.outside="close($refs.button)"
+                :id="$id('dropdown-button')"
+                style="display: none;"
+            >
+                <!--
+                  Dropdown menu, show/hide based on menu state.
 
-{{--                  Entering: "transition ease-out duration-100"--}}
-{{--                    From: "transform opacity-0 scale-95"--}}
-{{--                    To: "transform opacity-100 scale-100"--}}
-{{--                  Leaving: "transition ease-in duration-75"--}}
-{{--                    From: "transform opacity-100 scale-100"--}}
-{{--                    To: "transform opacity-0 scale-95"--}}
-{{--                -->--}}
-{{--                <div class="transform opacity-0 scale-95 z-10 mx-3 origin-top absolute right-0 left-0 mt-1 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu-button" tabindex="-1">--}}
-{{--                    <div class="py-1" role="none">--}}
-{{--                        <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->--}}
-{{--                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="options-menu-item-0">View profile</a>--}}
-{{--                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="options-menu-item-1">Settings</a>--}}
-{{--                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="options-menu-item-2">Notifications</a>--}}
-{{--                    </div>--}}
-{{--                    <div class="py-1" role="none">--}}
-{{--                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="options-menu-item-3">Get desktop app</a>--}}
-{{--                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="options-menu-item-4">Support</a>--}}
-{{--                    </div>--}}
-{{--                    <div class="py-1" role="none">--}}
-{{--                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="options-menu-item-5">Logout</a>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
+                  Entering: "transition ease-out duration-100"
+                    From: "transform opacity-0 scale-95"
+                    To: "transform opacity-100 scale-100"
+                  Leaving: "transition ease-in duration-75"
+                    From: "transform opacity-100 scale-100"
+                    To: "transform opacity-0 scale-95"
+                -->
+                <div class=" z-10 mx-3 origin-top absolute right-0 left-0 mt-1 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu-button" tabindex="-1">
+                    <div class="py-1" role="none">
+                        <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="options-menu-item-0">View profile</a>
+                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="options-menu-item-1">Settings</a>
+                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="options-menu-item-2">Notifications</a>
+                    </div>
+                    <div class="py-1" role="none">
+                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="options-menu-item-3">Get desktop app</a>
+                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="options-menu-item-4">Support</a>
+                    </div>
+                    <div class="py-1" role="none">
+                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="options-menu-item-5">Logout</a>
+                    </div>
+                </div>
+            </div>
 
 
             <!-- Sidebar Search -->
