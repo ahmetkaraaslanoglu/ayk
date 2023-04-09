@@ -7,6 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
     <title>AYK</title>
+
+    <script>
+        window.onload = function() {
+            // Tarayıcının URL'sini kontrol et
+            var currentLocation = window.location.href;
+            var links = document.getElementsByTagName('a');
+            for (var i = 0; i < links.length; i++) {
+                if (links[i].href === currentLocation) {
+                    // Aktif sayfa öğesine 'active' sınıfını ekle
+                    links[i].className = 'active';
+                }
+            }
+        };
+    </script>
 </head>
 <body>
 <div class="min-h-full">
@@ -81,7 +95,7 @@
             <nav class="px-3 mt-6">
                 <div class="space-y-1">
                     <!-- Current: "bg-gray-200 text-gray-900", Default: "text-gray-700 hover:text-gray-900 hover:bg-gray-50" -->
-                    <a href="/dashboard" class="bg-gray-200 text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md" aria-current="page">
+                    <a href="/dashboard" class="text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md" aria-current="page">
                         <!--
                           Heroicon name: outline/home
 

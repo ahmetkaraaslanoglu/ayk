@@ -13,18 +13,18 @@
         <div class="py-2 w-full lg:px-8 flex justify-center">
             <div class="mt-8 relative">
                 <div class="relative w-full pb-6 -mb-6 overflow-x-auto">
-                    <ul role="list" class="mx-4 inline-flex space-x-8 sm:mx-6 lg:mx-0 lg:space-x-0 lg:grid lg:grid-cols-4 lg:gap-x-8">
+                    <ul role="list" class="inline-flex space-x-5 sm:mx-6 lg:mx-0 lg:space-x-0 lg:grid lg:grid-cols-4 lg:gap-x-8">
 
                         @foreach($homeworks as $homework)
                             <li class="w-64 inline-flex flex-col text-center lg:w-64 mb-20 mr-10">
-                                <div class="group relative bg-gray-100 rounded p-3">
+                                <div class="group relative bg-gray-100 rounded p-3 h-500">
                                     <div class="w-full bg-gray-200 rounded-md overflow-hidden aspect-w-1 aspect-h-1">
                                         <img src="https://img.freepik.com/free-vector/school-supplies-books-pencils-apple_24908-56504.jpg?w=900&t=st=1680994850~exp=1680995450~hmac=47dde76ff2ad57b31097bc8ea678f7457ea761546735250efa6f53fec3d3fc04" alt="resim" class="w-full h-full object-center object-cover group-hover:opacity-75">
                                     </div>
                                     <div class="mt-2">
                                         <p class="text-sm text-gray-500">{{$homework->lesson}}</p>
                                         <p class="text-sm text-gray-500">{{$homework->subject}}</p>
-                                        <p class="mt-1 text-gray-900 text-xs mt-3">Oluşturulma Tarihi: {{date('d-m-Y', strtotime($homework->created_at))}}</p>
+                                        <p class="text-gray-900 text-xs mt-3">Oluşturulma Tarihi: {{date('d-m-Y', strtotime($homework->created_at))}}</p>
                                         <p class="mt-1 text-gray-900 text-xs">Son Teslim Tarihi: {{date('d-m-Y', strtotime($homework->deadline))}}</p>
                                     </div>
                                 </div>
