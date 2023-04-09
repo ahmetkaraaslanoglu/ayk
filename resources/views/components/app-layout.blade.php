@@ -8,19 +8,6 @@
     @vite('resources/css/app.css')
     <title>AYK</title>
 
-    <script>
-        window.onload = function() {
-            // Tarayıcının URL'sini kontrol et
-            var currentLocation = window.location.href;
-            var links = document.getElementsByTagName('a');
-            for (var i = 0; i < links.length; i++) {
-                if (links[i].href === currentLocation) {
-                    // Aktif sayfa öğesine 'active' sınıfını ekle
-                    links[i].className = 'active';
-                }
-            }
-        };
-    </script>
 </head>
 <body>
 <div class="min-h-full">
