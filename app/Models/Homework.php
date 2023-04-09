@@ -18,6 +18,7 @@ class Homework extends Model
         'lesson',
         'subject',
         'photo',
+        'isDone',
     ];
 
     public function school_classes():BelongsToMany

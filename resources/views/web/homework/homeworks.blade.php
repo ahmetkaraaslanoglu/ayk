@@ -19,13 +19,30 @@
                             <li class="w-64 inline-flex flex-col text-center lg:w-64 mb-20 mr-10">
                                 <div class="group relative bg-gray-100 rounded p-3 h-500">
                                     <div class="w-full bg-gray-200 rounded-md overflow-hidden aspect-w-1 aspect-h-1">
-                                        <img src="https://img.freepik.com/free-vector/school-supplies-books-pencils-apple_24908-56504.jpg?w=900&t=st=1680994850~exp=1680995450~hmac=47dde76ff2ad57b31097bc8ea678f7457ea761546735250efa6f53fec3d3fc04" alt="resim" class="w-full h-full object-center object-cover group-hover:opacity-75">
+                                        @php
+                                            $imageUrl= "https://img.freepik.com/free-vector/school-supplies-books-pencils-apple_24908-56504.jpg?w=900&t=st=1680994850~exp=1680995450~hmac=47dde76ff2ad57b31097bc8ea678f7457ea761546735250efa6f53fec3d3fc04";
+                                            if($homework->lesson=="Kimya") {
+                                                $imageUrl="https://imgyukle.com/f/2023/04/09/QeRPRP.png";
+                                            } elseif($homework->lesson=="Matematik") {
+                                                $imageUrl="https://www.resimupload.org/images/2023/04/09/download.png";
+                                            } elseif($homework->lesson=="Fizik") {
+                                                $imageUrl="https://www.resimupload.org/images/2023/04/09/7677494.jpg";
+                                            } elseif($homework->lesson=="Biyoloji") {
+                                                $imageUrl="https://www.resimupload.org/images/2023/04/09/biyoloji-ders-notlari.jpg";
+                                            }
+                                        @endphp
+                                        <img src="{{ $imageUrl }}" alt="resim" class="w-full h-full object-center object-cover group-hover:opacity-75">
                                     </div>
                                     <div class="mt-2">
                                         <p class="text-sm text-gray-500">{{$homework->lesson}}</p>
                                         <p class="text-sm text-gray-500">{{$homework->subject}}</p>
                                         <p class="text-gray-900 text-xs mt-3">Oluşturulma Tarihi: {{date('d-m-Y', strtotime($homework->created_at))}}</p>
                                         <p class="mt-1 text-gray-900 text-xs">Son Teslim Tarihi: {{date('d-m-Y', strtotime($homework->deadline))}}</p>
+                                        @if($homework->isDone == 1)
+                                            <p class="text-green-800 font-bold"> Ödev tamamlandı </p>
+                                        @else
+                                            <p class="text-red-800 font-bold"> Ödev tamamlanmadı </p>
+                                        @endif
                                     </div>
                                 </div>
 

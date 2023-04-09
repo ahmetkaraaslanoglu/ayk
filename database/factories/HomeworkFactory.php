@@ -23,6 +23,8 @@ class HomeworkFactory extends Factory
             'content' => fake()->text,
             'deadline' => fake()->date,
             'photo' => fake()->imageUrl,
+            'isDone' => fake()->boolean(),
+
         ];
     }
 }
