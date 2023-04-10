@@ -37,7 +37,7 @@
                                 <p class="text-center text-gray-600 font-medium text-m">{{ $homework->subject }}</p>
                                 <hr class="border-t-1 border-gray-300 my-2">
                             </div>
-{{--                            Bu divin tabana yapışması lazım ama beceremedim--}}
+                            {{--@todo Bu divin tabana yapışması lazım ama beceremedim--}}
                             <div id="deneme" class="flex flex-col">
                                 <div class="flex-col w-full">
                                     <div class="flex p-2 rounded justify-between align-middle">

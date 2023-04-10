@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Absenteeism;
 use App\Models\School;
 use App\Models\SchoolClass;
 use App\Models\SchoolClassExam;
@@ -32,10 +33,14 @@ class DatabaseSeeder extends Seeder
                 'school_id' => $school->id,
             ])->each(function (SchoolClass $schoolClass) {
                 SchoolClassHomework::factory(5)->create(['school_class_id' => $schoolClass->id]);
-                SchoolClassExam::factory()->create(['school_class_id' => $schoolClass->id]);
+                SchoolClassExam::factory(5)->create(['school_class_id' => $schoolClass->id]);
                 Student::factory(5)->create([
                     'school_class_id' => $schoolClass->id,
-                ]);
+                ])->each(function (Student $student) {
+                    Absenteeism::factory(5)->create([
+                        'student_id' => $student->id,
+                    ]);
+                });
             });
         });
     }

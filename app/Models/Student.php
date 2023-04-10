@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 
@@ -51,6 +52,11 @@ class Student extends Model implements Authenticatable
     public function homeworks(): BelongsToMany
     {
         return $this->belongsToMany(Homework::class, 'school_class_homework', 'school_class_id', 'homework_id');
+    }
+
+    public function absenteeisms(): HasMany
+    {
+        return $this->hasMany(Absenteeism::class);
     }
 
 
