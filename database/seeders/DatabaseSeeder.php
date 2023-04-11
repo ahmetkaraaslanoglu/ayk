@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Absenteeism;
+use App\Models\Message;
 use App\Models\School;
 use App\Models\SchoolClass;
 use App\Models\SchoolClassExam;
@@ -24,6 +25,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        Message::factory(10)->create();
 
 
         School::factory(3)->create()->each(function (School $school) {

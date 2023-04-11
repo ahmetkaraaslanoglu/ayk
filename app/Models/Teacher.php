@@ -21,6 +21,7 @@ class Teacher extends Model implements Authenticatable
         'name',
         'email',
         'password',
+        'profile_photo',
     ];
 
     protected $hidden = [
