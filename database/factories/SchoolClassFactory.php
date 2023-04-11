@@ -18,9 +18,10 @@ class SchoolClassFactory extends Factory
      */
     public function definition(): array
     {
+        $class_names = array('9A', '9B' , '9C', '9D', '10A', '10B', '10C', '10D', '11A', '11B', '11C', '11D', '12A', '12B', '12C', '12D');
         return [
             'school_id' => School::factory(),
-            'name' => fake()->city,
+            'name' => $class_names[rand(0, count($class_names) - 1)],
         ];
     }
 }

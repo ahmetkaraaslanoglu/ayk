@@ -16,8 +16,8 @@
             <ul role="list" class="inline-flex space-x-5 sm:mx-6 lg:mx-0 lg:space-x-0 lg:grid lg:grid-cols-5 lg:gap-x-8 p-10 w-full">
 
                 @foreach($homeworks as $homework)
-                    <a href="#" class="w-200 h-300 bg-gray-100 rounded-xl">
-                        <div class="w-full h-full p-4">
+                    <a href="#" class="w-200 h-300 bg-gray-100 shadow-md rounded-xl">
+                        <div class="w-full h-full p-4 rounded-xl">
 
                             <div class="w-150 h-150">
                                 @php
@@ -32,7 +32,7 @@
                                     $imageUrl="https://img.freepik.com/free-vector/school-supplies-books-pencils-apple_24908-56504.jpg?w=900&t=st=1680994850~exp=1680995450~hmac=47dde76ff2ad57b31097bc8ea678f7457ea761546735250efa6f53fec3d3fc04";
                                     }
                                     @endphp
-                                <img src="{{ $imageUrl }}" alt="resim" class="w-full h-full object-center object-cover">
+                                <img src="{{ $imageUrl }}" alt="resim" class="w-full h-full object-center object-cover rounded">
 
                                 <p class="text-center text-gray-500 font-medium text-s">{{ $homework->lesson }}</p>
                                 <hr class="border-t-1 border-gray-300 my-2">
@@ -63,7 +63,7 @@
                                             <i class="fa-solid fa-circle-xmark text-red-500 p-1"></i>
                                         </div>
                                     @endif
-                                    <button class="w-full transition: duration-300 border-2 border-gray-400 hover:border-green-500 hover:bg-green-500 mt-3 rounded p-1 text-gray-600 hover:text-white font-bold text-l">Ödevi Gönder</button>
+                                    <button class="w-full bg-white shadow-md transition: duration-300 hover:bg-green-500 mt-3 rounded p-1 text-gray-600 hover:text-white font-bold text-l">Ödevi Gönder</button>
                                 </div>
                             </div>
 

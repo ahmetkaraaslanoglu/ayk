@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\School::class);
+            $table->foreignIdFor(\App\Models\SchoolClass::class);
             $table->string('name');
             $table->string('email');
             $table->string('password');

@@ -10,6 +10,7 @@ use App\Models\SchoolClassExam;
 use App\Models\SchoolClassHomework;
 use App\Models\Student;
 use App\Models\Teacher;
+use App\Models\TeacherSchoolClass;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -26,12 +27,16 @@ class DatabaseSeeder extends Seeder
 
 
         School::factory(3)->create()->each(function (School $school) {
-            Teacher::factory(5)->create([
-                'school_id' => $school->id,
-            ]);
             SchoolClass::factory(5)->create([
                 'school_id' => $school->id,
             ])->each(function (SchoolClass $schoolClass) {
+                Teacher::factory(5)->create([
+                    'school_class_id' => $schoolClass->id,
+                ])->each(function (Teacher $teacher){
+                    TeacherSchoolClass::factory(5)->create([
+                        'teacher_id' => $teacher->id,
+                    ]);
+                });
                 SchoolClassHomework::factory(5)->create(['school_class_id' => $schoolClass->id]);
                 SchoolClassExam::factory(5)->create(['school_class_id' => $schoolClass->id]);
                 Student::factory(5)->create([
