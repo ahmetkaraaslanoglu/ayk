@@ -52,7 +52,7 @@
 {{--                                </td>--}}
 {{--                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Admin</td>--}}
                                 <td class="whitespace-nowrap text-right text-sm font-medium pr-5">
-                                    <a href="/{{$exam->exam_link}}" class="text-gray-900 hover:text-white hover:bg-purple-600 border-2 rounded-l p-2 transition: duration-500 ease-in-out">Sınava Git</a>
+                                    <a href="/{{$exam->exam_link}}" class="text-gray-900 hover:text-white hover:bg-purple-600 hover:border-purple-600 border-2 rounded-l p-2 transition: duration-500 ease-in-out">Sınava Git</a>
                                 </td>
                             </tr>
                         @endforeach

@@ -1,4 +1,6 @@
 <x-app-layout>
+    <script src="https://kit.fontawesome.com/d4a7d721de.js" crossorigin="anonymous"></script>
+
     <div class="bg-white">
         <div class="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
             <div class="flex-1 min-w-0">
@@ -51,12 +53,17 @@
                                 </div>
                                 <div class="flex-row">
                                     @if($homework -> isDone == 1)
-                                    <p>Ödev Durumu: Tamamlandı</p>
-                                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-n8Y2yxE+EuLdntoGb5/Q/6Z2Q2qwX5AVFgN6uN5OYfv7BojKo6CmR+xgGm50ddj0cTxXHNOU+QIXmNCezFEfYw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+                                        <div class="flex justify-between p-2">
+                                            <p>Ödev Durumu: </p>
+                                            <i class="fa-solid fa-circle-check text-green-500 p-1"></i>
+                                        </div>
                                     @else
-                                    <p>Ödev Durumu: Tamamlanmadı</p>
+                                        <div class="flex justify-between p-2">
+                                            <p>Ödev Durumu: </p>
+                                            <i class="fa-solid fa-circle-xmark text-red-500 p-1"></i>
+                                        </div>
                                     @endif
-                                    <button class="w-full border-2 border-green-500 hover:bg-green-500 mt-3 rounded p-1 text-gray-600 hover:text-white font-bold text-l">Ödevi Gönder</button>
+                                    <button class="w-full transition: duration-300 border-2 border-gray-400 hover:border-green-500 hover:bg-green-500 mt-3 rounded p-1 text-gray-600 hover:text-white font-bold text-l">Ödevi Gönder</button>
                                 </div>
                             </div>
 
