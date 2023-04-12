@@ -13,7 +13,7 @@ class ExamController extends Controller
      */
     public function index()
     {
-        $exams = auth('student')->user()->school_class->exams;
+        $exams = auth('student')->user()->exams;
         return response()->view('web.exam.exams',compact('exams'));
     }
 

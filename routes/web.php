@@ -29,4 +29,3 @@ Route::middleware('auth:student')->group(function () {
    Route::resource('teachers',\App\Http\Controllers\Web\Student\TeacherController::class);
 });
 
-
