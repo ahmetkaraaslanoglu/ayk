@@ -27,5 +27,6 @@ Route::middleware('auth:student')->group(function () {
    Route::resource('absenteeism',\App\Http\Controllers\Web\Student\AbsenteeismController::class);
    Route::get('dashboard',[\App\Http\Controllers\Web\Student\DashboardController::class,'index'])->name('dashboard');
    Route::resource('teachers',\App\Http\Controllers\Web\Student\TeacherController::class);
+   Route::resource('messages',\App\Http\Controllers\Web\Student\MessageController::class);
 });
 

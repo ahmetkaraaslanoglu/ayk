@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,10 +19,10 @@ class MessageFactory extends Factory
     public function definition(): array
     {
         return [
+            'student_id' => Student::factory(),
+            'teacher_id' => Teacher::factory(),
             'title' =>fake()->title,
-            'content'=>fake()->paragraph,
-
-            //
+            'content'=>fake()->realText,
         ];
     }
 }

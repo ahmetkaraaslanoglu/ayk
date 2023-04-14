@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 
@@ -47,4 +48,10 @@ class Teacher extends Model implements Authenticatable
         $ids = $this->school_classes()->get(['id'])->pluck('id');
         return Student::query()->whereIn('id',$ids);
     }
+
+    public function messages():HasMany
+    {
+        return $this->hasMany(Message::class);
+    }
+
 }

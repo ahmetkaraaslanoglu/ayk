@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        Message::factory(10)->create();
+//        Message::factory(10)->create();
 
 
         School::factory(3)->create()->each(function (School $school) {
@@ -46,6 +46,13 @@ class DatabaseSeeder extends Seeder
                 Student::factory(5)->create([
                     'school_class_id' => $schoolClass->id,
                 ])->each(function (Student $student) {
+                    $teacher = Teacher::where('school_class_id', $student->school_class_id)->inRandomOrder()->first();
+                    Message::factory(2)->create([
+                        'student_id' => $student->id,
+                        'teacher_id' => $teacher->id,
+                    ]);
+
+
 
                     Absenteeism::factory(5)->create([
                         'student_id' => $student->id,

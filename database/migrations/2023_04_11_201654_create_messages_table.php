@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Student::class);
+            $table->foreignIdFor(\App\Models\Teacher::class);
             $table->string('title');
             $table->string('content');
             $table->timestamps();
