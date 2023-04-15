@@ -36,11 +36,12 @@ class DatabaseSeeder extends Seeder
             ])->each(function (SchoolClass $schoolClass) {
                 Teacher::factory(5)->create([
                     'school_class_id' => $schoolClass->id,
-                ])->each(function (Teacher $teacher){
-                    TeacherSchoolClass::factory(5)->create([
-                        'teacher_id' => $teacher->id,
-                    ]);
-                });
+                ]);
+//                    ->each(function (Teacher $teacher){
+//                    TeacherSchoolClass::factory(5)->create([
+//                        'teacher_id' => $teacher->id,
+//                    ]);
+//                });
                 SchoolClassHomework::factory(5)->create(['school_class_id' => $schoolClass->id]);
                 SchoolClassExam::factory(5)->create(['school_class_id' => $schoolClass->id]);
                 Student::factory(5)->create([

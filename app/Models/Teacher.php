@@ -38,16 +38,26 @@ class Teacher extends Model implements Authenticatable
         return $this->hasOne(School::class);
     }
 
-    public function school_classes(): BelongsToMany
+//    public function school_classes(): BelongsToMany
+//    {
+//        return $this->belongsToMany(SchoolClass::class,'teacher_school_classes');
+//    }
+
+    public function school_classes():BelongsToMany
     {
-        return $this->belongsToMany(SchoolClass::class,'teacher_school_classes');
+        return $this->belongsToMany(
+            SchoolClass::class,
+            'teacher_school_class',
+            'school_class_id',
+            'teacher_id',
+        );
     }
 
-    public function students(): \Illuminate\Database\Eloquent\Builder
-    {
-        $ids = $this->school_classes()->get(['id'])->pluck('id');
-        return Student::query()->whereIn('id',$ids);
-    }
+//    public function students(): \Illuminate\Database\Eloquent\Builder
+//    {
+//        $ids = $this->school_classes()->get(['id'])->pluck('id');
+//        return Student::query()->whereIn('id',$ids);
+//    }
 
     public function messages():HasMany
     {

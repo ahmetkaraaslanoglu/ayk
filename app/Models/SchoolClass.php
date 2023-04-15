@@ -21,10 +21,10 @@ class SchoolClass extends Model
         return $this->hasOne(School::class);
     }
 
-    public function teachers(): BelongsToMany
-    {
-        return $this->belongsToMany(Teacher::class, 'teacher_school_classes');
-    }
+//    public function teachers(): BelongsToMany
+//    {
+//        return $this->belongsToMany(Teacher::class, 'teacher_school_classes');
+//    }
 
     public function students(): HasMany
     {
@@ -57,4 +57,15 @@ class SchoolClass extends Model
             'school_class_id',
         );
     }
+
+    public function teachers():BelongsToMany
+    {
+        return $this->belongsToMany(
+            Teacher::class,
+            'teacher_school_classes',
+            'teacher_id',
+            'school_class_id',
+        );
+    }
+
 }

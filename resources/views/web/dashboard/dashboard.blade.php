@@ -7,6 +7,7 @@
     @for ($i = 0; $i <1;$i++)
         @if (auth('student')->check())
             <div>{{auth('student')->user()->name}}</div>
+            <div>{{auth('student')->user()->school_class->name}}</div>
         @endif
     @endfor
 </x-app-layout>

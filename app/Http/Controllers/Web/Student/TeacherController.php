@@ -13,9 +13,8 @@ class TeacherController extends Controller
      */
     public function index()
     {
-//        $teachers = auth('student')->user()->teachers;
-        // return response()->view('web.teacher.teacher', compact('teachers'));
-        return response()->view('web.teacher.teachers');
+        $teachers = auth('student')->user()->teachers;
+         return response()->view('web.teacher.teachers', compact('teachers'));
     }
 
     /**
