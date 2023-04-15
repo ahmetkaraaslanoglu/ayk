@@ -27,7 +27,7 @@
                             <div class="flex align-middle p-1">
                                 <i class="fa-solid fa-user text-gray-400 align-middle p-1"></i>
 {{--                                @todo Burada öğretmen adı yazacak--}}
-                                <p class="text-gray-400 ml-1 text-s">Öğretmen: Kubilay Karakaya </p>
+                                <p class="text-gray-400 ml-1 text-s">Öğretmen: Ahmet Emir Karaaslanoğlu </p>
                             </div>
                         </div>
                     </div>
