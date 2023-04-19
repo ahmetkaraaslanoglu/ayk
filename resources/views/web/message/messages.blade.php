@@ -1,5 +1,16 @@
 <x-app-layout>
 
+    <script>
+
+
+
+
+
+
+    </script>
+
+
+
     <div class="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
         <div class="flex-1 min-w-0">
             <h1 class="text-2xl font-extrabold tracking-tight text-gray-900">Mesaj Kutusu</h1>
@@ -53,7 +64,7 @@
                                         </td>
 
                                         <td class="whitespace-nowrap text-right text-sm font-medium pr-5">
-                                            <a href="#" class="text-gray-900 hover:text-white hover:bg-purple-600 hover:border-purple-600 border-2 rounded-l p-2 transition: duration-300 ease-in-out">Mesaja Git</a>
+                                            <button id="modal-button" class="text-gray-900 hover:text-white hover:bg-purple-600 hover:border-purple-600 border-2 rounded-l p-2 transition: duration-300 ease-in-out">Mesaja Git</button>
                                         </td>
 
                                     </tr>
@@ -62,6 +73,58 @@
                         </tbody>
 
                     </table>
+
+            <div>
+{{--                Playground--}}
+{{--                @todo bu kısma eklemeyin devam edicem uykum geldi--}}
+
+
+                <div id="modal" class="relative z-10 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                    <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
+
+                    <div class="fixed inset-0 z-10 overflow-y-auto">
+                        <div class="flex min-h-screen items-center justify-center">
+                            <div class="relative bg-white w-96 rounded-lg shadow-lg">
+                                <div class="px-6 py-4">
+                                    <div class="flex justify-between items-center">
+                                        <h2 class="font-bold text-2xl" id="modal-title">{{$messages[0]->title}}</h2>
+
+                                        <button id="modal-close-button" class="text-gray-500 hover:text-gray-400 focus:outline-none">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </button>
+
+                                    </div>
+                                    <div class="mt-4">
+                                        <p>{{$messages[0]->content}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <script>
+                    const modal = document.getElementById("modal");
+                    const modalButton = document.getElementById("modal-button");
+                    const modalCloseButton = document.getElementById("modal-close-button");
+
+                    modalButton.addEventListener("click", function () {
+                        modal.classList.remove("hidden");
+                    });
+
+                    modalCloseButton.addEventListener("click", function () {
+                        modal.classList.add("hidden");
+                    });
+                </script>
+
+
+
+
+                {{--            Playground ends--}}
+            </div>
+
         </div>
     </div>
 
