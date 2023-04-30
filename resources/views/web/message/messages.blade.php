@@ -17,8 +17,115 @@
         </div>
 
         <div class="mt-4 flex sm:mt-0 sm:ml-4">
-            <button type="button" class="order-0 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-1 sm:ml-3">Mesaj Oluştur</button>
+            <button id="modal-button" type="button" class="order-0 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-800 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-1 sm:ml-3">Mesaj Oluştur</button>
         </div>
+
+{{--        Modal Başlangıç--}}
+
+        <div id="modal" class="relative z-10 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
+
+            <div class="fixed inset-0 z-10 overflow-y-auto">
+                <div class="flex min-h-screen items-center justify-center">
+                    <div class="relative bg-white w-96 rounded-lg shadow-lg">
+                        <div class="px-6 py-4">
+                            <div class="flex justify-between items-center">
+                                <h2 class="font-bold text-2xl" id="modal-title">Mesaj Gönder</h2>
+
+                                <button id="modal-close-button" class="text-gray-500 hover:text-gray-400 focus:outline-none">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+
+                            </div>
+                            <div class="mt-4">
+                                <form class="max-w-md mx-auto">
+                                    <div class="mb-4">
+                                        <label class="block text-gray-700 font-bold mb-2" for="email">
+                                            Göndereceğiniz kişinin E-posta adresi:
+                                        </label>
+                                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="E-posta">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="block text-gray-700 font-bold mb-2" for="title">
+                                            Mesaj başlığı:
+                                        </label>
+                                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" placeholder="Başlık">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="block text-gray-700 font-bold mb-2" for="message">
+                                            Mesajınız:
+                                        </label>
+                                        <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="message" rows="5" placeholder="Mesajınızı girin"></textarea>
+                                    </div>
+                                    <div class="flex items-center justify-end">
+                                        <button id="send-button" class="bg-purple-600 hover:bg-purple-800 transition text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                                            Gönder
+                                        </button>
+
+                                        <div id="alertBox" class="fixed top-0 mt-8 p-4 mx-auto rounded-md bg-green-600 text-white hidden">
+                                            <p>Mesajınız başarıyla gönderildi!</p>
+                                        </div>
+                                        <div id="falseAlertBox" class="fixed top-0 mt-8 p-4 mx-auto rounded-md bg-red-500 text-white hidden">
+                                            <p>Lütfen tüm alanları doldurduğunuzdan emin olunuz.</p>
+                                        </div>
+
+                                        <script>
+                                            const sendButton = document.getElementById("send-button");
+                                            const inputEmail = document.getElementById("email");
+                                            const inputTitle = document.getElementById("title");
+                                            const inputMessage = document.getElementById("message");
+
+                                            sendButton.addEventListener("click", function () {
+                                                if (inputEmail.value !== "" && inputTitle.value !== "" && inputMessage.value !== ""){
+                                                    showAlert();
+                                                }else{
+                                                    showFalseAlert();
+                                                }
+                                            });
+                                            function showAlert() {
+                                                const alertBox = document.getElementById("alertBox");
+                                                alertBox.style.display = "block";
+                                                setTimeout(() => {
+                                                    alertBox.style.display = "none";
+                                                }, 3000);
+                                            }
+
+                                            function showFalseAlert() {
+                                                const falseAlertBox = document.getElementById("falseAlertBox");
+                                                falseAlertBox.style.display = "block";
+                                                setTimeout(() => {
+                                                    falseAlertBox.style.display = "none";
+                                                }, 3000);
+                                            }
+
+                                        </script>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <script>
+            const modal = document.getElementById("modal");
+            const modalButton = document.getElementById("modal-button");
+            const modalCloseButton = document.getElementById("modal-close-button");
+
+            modalButton.addEventListener("click", function () {
+                modal.classList.remove("hidden");
+            });
+
+            modalCloseButton.addEventListener("click", function () {
+                modal.classList.add("hidden");
+            });
+        </script>
+
+{{--        Modal Bitiş    --}}
     </div>
 
     <div class="flex justify-center mt-8">
@@ -27,9 +134,9 @@
 
                         <thead>
                         <tr>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gönderen</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Başlık</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gönderilme Tarihi</th>
                         </tr>
                         </thead>
 
@@ -64,7 +171,7 @@
                                         </td>
 
                                         <td class="whitespace-nowrap text-right text-sm font-medium pr-5">
-                                            <button id="modal-button" class="text-gray-900 hover:text-white hover:bg-purple-600 hover:border-purple-600 border-2 rounded-l p-2 transition: duration-300 ease-in-out">Mesaja Git</button>
+                                            <button class="text-gray-900 hover:text-white hover:bg-purple-600 hover:border-purple-600 border-2 rounded-l p-2 transition: duration-300 ease-in-out">Mesaja Git</button>
                                         </td>
 
                                     </tr>
@@ -73,57 +180,6 @@
                         </tbody>
 
                     </table>
-
-            <div>
-{{--                Playground--}}
-{{--                @todo bu kısma eklemeyin devam edicem uykum geldi--}}
-
-
-                <div id="modal" class="relative z-10 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-                    <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
-
-                    <div class="fixed inset-0 z-10 overflow-y-auto">
-                        <div class="flex min-h-screen items-center justify-center">
-                            <div class="relative bg-white w-96 rounded-lg shadow-lg">
-                                <div class="px-6 py-4">
-                                    <div class="flex justify-between items-center">
-                                        <h2 class="font-bold text-2xl" id="modal-title">{{$messages[0]->title}}</h2>
-
-                                        <button id="modal-close-button" class="text-gray-500 hover:text-gray-400 focus:outline-none">
-                                            <i class="fa-solid fa-xmark"></i>
-                                        </button>
-
-                                    </div>
-                                    <div class="mt-4">
-                                        <p>{{$messages[0]->content}}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <script>
-                    const modal = document.getElementById("modal");
-                    const modalButton = document.getElementById("modal-button");
-                    const modalCloseButton = document.getElementById("modal-close-button");
-
-                    modalButton.addEventListener("click", function () {
-                        modal.classList.remove("hidden");
-                    });
-
-                    modalCloseButton.addEventListener("click", function () {
-                        modal.classList.add("hidden");
-                    });
-                </script>
-
-
-
-
-                {{--            Playground ends--}}
-            </div>
 
         </div>
     </div>
