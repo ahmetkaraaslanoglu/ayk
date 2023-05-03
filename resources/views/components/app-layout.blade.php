@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite(['resources/css/app.css','resources/js/app.js'])
-    <title>AYK</title>
+    <title>{{ $title ?? config('app.name') }}</title>
     <script src="https://kit.fontawesome.com/d4a7d721de.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -260,6 +260,5 @@
         </main>
     </div>
 </div>
-
 </body>
 </html>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\Student;
 
 use App\Http\Controllers\Controller;
 use App\Models\Message;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
@@ -30,7 +31,18 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'email' => 'required|exists:teachers,email',
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+
+        $message = Message::query()->create(array_merge($validated, [
+            'teacher_id' => Teacher::query()->where('email',$validated['email'])->first(['id'])->id,
+            'student_id' => auth('student')->id(),
+        ]));
+
+        return redirect()->back();
     }
 
     /**

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Notifications\Notifiable;
 
 class Teacher extends Model implements Authenticatable
@@ -59,9 +60,8 @@ class Teacher extends Model implements Authenticatable
 //        return Student::query()->whereIn('id',$ids);
 //    }
 
-    public function messages():HasMany
+    public function messages(): HasMany
     {
         return $this->hasMany(Message::class);
     }
-
 }
