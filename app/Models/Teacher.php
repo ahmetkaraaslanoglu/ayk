@@ -64,4 +64,14 @@ class Teacher extends Model implements Authenticatable
     {
         return $this->hasMany(Message::class);
     }
+
+    public function homeworks():HasMany
+    {
+        return $this->hasMany(Homework::class,'owner_id','id');
+    }
+
+    public function exams():HasMany
+    {
+        return $this->hasMany(Exam::class,'owner_id','id');
+    }
 }

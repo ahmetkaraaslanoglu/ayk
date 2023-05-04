@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('exams', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Teacher::class,'owner_id')->nullable()->default(null);
             $table->date('deadline');
             $table->string('exam_link');
             $table->string('sender');

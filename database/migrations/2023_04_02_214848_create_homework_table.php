@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('deadline');
             $table->string('photo');
             $table->string('content');
-            $table->boolean('isDone');
+            $table->boolean('is_done');
             $table->timestamps();
         });
     }

@@ -4,10 +4,16 @@
             <h1 class="text-2xl font-extrabold tracking-tight text-gray-900">Ana Sayfa</h1>
         </div>
     </div>
-    @for ($i = 0; $i <1;$i++)
-        @if (auth('student')->check())
+    @if (auth('student')->check())
+        @for ($i = 0; $i <1;$i++)
             <div>{{auth('student')->user()->name}}</div>
             <div>{{auth('student')->user()->school_class->name}}</div>
-        @endif
-    @endfor
+        @endfor
+    @endif
+
+    @if (auth('teacher')->check())
+        <div>{{auth('teacher')->user()->name}}</div>
+    @endif
+
+
 </x-app-layout>

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Teacher;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,7 +24,7 @@ class HomeworkFactory extends Factory
             'content' => fake()->text,
             'deadline' => fake()->date,
             'photo' => fake()->imageUrl,
-            'isDone' => fake()->boolean(),
+            'is_done' => fake()->boolean(),
 
         ];
     }

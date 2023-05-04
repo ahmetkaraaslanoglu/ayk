@@ -22,6 +22,11 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
+        auth('user')->logout();
+        auth('teacher')->logout();
+        auth('student')->logout();
+
+
         if (auth($request->input('type'))->attempt($validated)) {
             return redirect()->to('/dashboard');
         }
@@ -34,6 +39,6 @@ class AuthController extends Controller
     public function logout()
     {
         auth('student')->logout();
-        return redirect()->to('/login/student');
+        return redirect()->to('/');
     }
 }

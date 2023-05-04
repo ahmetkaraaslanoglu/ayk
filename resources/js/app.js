@@ -19,32 +19,6 @@ modalCloseButton.addEventListener("click", function () {
 });
 
 
-const sendButton = document.getElementById("send-button");
-const inputEmail = document.getElementById("email");
-const inputTitle = document.getElementById("title");
-const inputMessage = document.getElementById("message");
 
-// sendButton.addEventListener("click", function () {
-//     if (inputEmail.value !== "" && inputTitle.value !== "" && inputMessage.value !== ""){
-//
-//         showAlert();
-//     }else{
-//         showFalseAlert();
-//     }
-// });
 
-function showAlert() {
-    const alertBox = document.getElementById("alertBox");
-    alertBox.style.display = "block";
-    setTimeout(() => {
-        alertBox.style.display = "none";
-    }, 3000);
-}
 
-function showFalseAlert() {
-    const falseAlertBox = document.getElementById("falseAlertBox");
-    falseAlertBox.style.display = "block";
-    setTimeout(() => {
-        falseAlertBox.style.display = "none";
-    }, 3000);
-}

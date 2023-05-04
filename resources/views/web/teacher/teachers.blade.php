@@ -18,10 +18,6 @@
                         <p class="mt-3 font-medium text-center">{{$teacher->name}}</p>
                     </div>
 
-
-
-
-
                     <div class="mt-4">
                         <button class="bg-white w-full p-2 rounded-br-2xl rounded-tl-2xl font-medium drop-shadow-md hover:bg-orange-400 hover:text-white transition duration-300">
                             Mesaj Gönder

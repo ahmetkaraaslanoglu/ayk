@@ -124,20 +124,8 @@
                 @endforeach
                 </tbody>
 
-                    </table>
+            </table>
 
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
 </x-app-layout>

@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Web\Student;
+namespace App\Http\Controllers\Web\Teacher;
 
 use App\Http\Controllers\Controller;
 use App\Models\Exam;
+use App\Models\SchoolClassExam;
 use Illuminate\Http\Request;
 
 class ExamController extends Controller
@@ -13,7 +14,7 @@ class ExamController extends Controller
      */
     public function index()
     {
-        $exams = auth('student')->user()->school_class->exams;
+        $exams = auth('teacher')->user()->exams;
         return response()->view('web.exam.exams',compact('exams'));
     }
 
@@ -30,7 +31,31 @@ class ExamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+        $validated = $request->validate([
+            'deadline' => 'required',
+            'exam_link' => 'required',
+            'classes.*' => 'exists:school_classes,id'
+        ]);
+
+
+
+        $exam = Exam::query()->create(array_merge($validated,[
+            'sender' => auth('teacher')->user()->name,
+            'owner_id' => auth('teacher')->id(),
+        ]));
+
+
+
+        foreach ($validated['classes'] as $classId){
+            SchoolClassExam::query()->create([
+                'school_class_id' => $classId,
+                'exam_id' => $exam->id,
+            ]);
+        }
+
+        return redirect()->back();
     }
 
     /**

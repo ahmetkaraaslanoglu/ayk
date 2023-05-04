@@ -11,6 +11,7 @@
 </head>
 <body>
 <div class="min-h-full">
+
     <!-- Static sidebar for desktop -->
     <div class="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 lg:border-r lg:border-gray-200 lg:pt-5 lg:pb-4 lg:bg-gray-100">
         <div class="flex items-center flex-shrink-0 px-6">
@@ -54,7 +55,7 @@
                         <span class="flex min-w-0 items-center justify-between space-x-3">
                             <img class="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0" src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" alt="">
                                 <span class="flex-1 flex flex-col min-w-0">
-                                    <span class="text-gray-900 text-sm font-medium truncate">{{auth('student')->user()->name}}</span>
+                                    <span class="text-gray-900 text-sm font-medium truncate">{{auth('student')->user() ?->name }}</span>
 {{--                                    <span class="text-gray-900 text-sm font-medium truncate">{{auth('student')->user()->school_class->school_id }}</span>--}}
                                 </span>
                         </span>
@@ -132,13 +133,13 @@
                         Anasayfa
                     </a>
 
-                    <a href="/homeworks" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                    <a href="{{ route(auth('teacher')->check() ? 'teacher.homeworks.index' : 'homeworks.index') }}" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
                         <!-- Heroicon name: outline/view-list -->
                         <i class="fa-solid fa-book text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>
                         Ödevlerim
                     </a>
 
-                    <a href="/exams" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                    <a href="{{ route(auth('teacher')->check() ? 'teacher.exams.index' : 'exams.index') }}" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
                         <!-- Heroicon name: outline/clock -->
                         <i class="fa-solid fa-pen-clip text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>
                         Sınavlarım
@@ -256,6 +257,9 @@
             </div>
         </div>
         <main class="flex-1">
+            @foreach($errors->all() as $error)
+                <div>{{$error}}</div>
+            @endforeach
             <div> {{ $slot }} </div>
         </main>
     </div>

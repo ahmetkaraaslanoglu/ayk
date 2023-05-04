@@ -53,8 +53,8 @@ class SchoolClass extends Model
         return $this->belongsToMany(
             Exam::class,
             'school_class_exams',
-            'exam_id',
             'school_class_id',
+            'exam_id',
         );
     }
 

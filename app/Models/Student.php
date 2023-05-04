@@ -60,11 +60,6 @@ class Student extends Model implements Authenticatable
         return $this->hasMany(Absenteeism::class);
     }
 
-    public function exams() :BelongsToMany
-    {
-        return $this->belongsToMany(Exam::class,'student_school_class_exams','school_class_id','exam_id');
-    }
-
     public function teachers():BelongsToMany
     {
         return $this->belongsToMany(Teacher::class,'student_school_class_teachers','school_class_id','teacher_id');
