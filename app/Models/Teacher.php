@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Models\Messageable;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,6 +14,7 @@ use Illuminate\Notifications\Notifiable;
 
 class Teacher extends Model implements Authenticatable
 {
+    use Messageable;
     use HasFactory;
     use HasFactory;
     use Notifiable;
@@ -39,7 +41,7 @@ class Teacher extends Model implements Authenticatable
         return $this->hasOne(School::class);
     }
 
-//    public function school_classes(): BelongsToMany
+//    public function school_classes2(): BelongsToMany
 //    {
 //        return $this->belongsToMany(SchoolClass::class,'teacher_school_classes');
 //    }
@@ -48,9 +50,9 @@ class Teacher extends Model implements Authenticatable
     {
         return $this->belongsToMany(
             SchoolClass::class,
-            'teacher_school_class',
-            'school_class_id',
+            'teacher_school_classes',
             'teacher_id',
+            'school_class_id',
         );
     }
 
@@ -60,10 +62,10 @@ class Teacher extends Model implements Authenticatable
 //        return Student::query()->whereIn('id',$ids);
 //    }
 
-    public function messages(): HasMany
-    {
-        return $this->hasMany(Message::class);
-    }
+//    public function messages(): HasMany
+//    {
+//        return $this->hasMany(Message::class);
+//    }
 
     public function homeworks():HasMany
     {
@@ -74,4 +76,6 @@ class Teacher extends Model implements Authenticatable
     {
         return $this->hasMany(Exam::class,'owner_id','id');
     }
+
+
 }

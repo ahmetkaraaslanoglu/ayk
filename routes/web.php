@@ -36,6 +36,9 @@ Route::middleware('auth:user,teacher,student')->group(function () {
 Route::middleware('auth:teacher')->prefix('/teacher')->name('teacher.')->group(function () {
     Route::resource('homeworks',\App\Http\Controllers\Web\Teacher\HomeworkController::class);
     Route::resource('exams',\App\Http\Controllers\Web\Teacher\ExamController::class);
+    Route::resource('messages',\App\Http\Controllers\Web\Teacher\MessageController::class);
+    Route::resource('students',\App\Http\Controllers\Web\Teacher\StudentController::class);
+
    Route::view('/asd','web.teams.team');
 });
 

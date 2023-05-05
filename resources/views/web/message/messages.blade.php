@@ -13,7 +13,6 @@
         </div>
 
 {{--        Modal Başlangıç--}}
-
         <div id="modal" class="relative z-10 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
             <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
 
@@ -30,7 +29,7 @@
 
                             </div>
                             <div class="mt-4">
-                                <form class="max-w-md mx-auto" method="post" action="{{ route('messages.store') }}">
+                                <form class="max-w-md mx-auto" method="post" action="{{ route(auth('teacher')->check() ? 'teacher.messages.store' : 'messages.store') }}">
                                     @csrf
                                     <div class="mb-4">
                                         <label class="block text-gray-700 font-bold mb-2" for="email">
@@ -73,55 +72,69 @@
 {{--        Modal Bitiş    --}}
     </div>
 
+
     <div class="flex justify-center mt-8">
         <div class="bg-white w-[90%]">
             <table class="min-w-full divide-y divide-gray-200">
 
-                        <thead>
-                        <tr>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gönderen</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Başlık</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gönderilme Tarihi</th>
-                        </tr>
-                        </thead>
+                <thead>
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gönderen</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Başlık</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gönderilme Tarihi</th>
+                </tr>
+                </thead>
 
                 <tbody class="bg-white divide-y divide-gray-200 ">
-                @foreach($messages as $message)
 
-                    <tr onclick="{{url("homeworks")}}">
+                @auth('teacher')
+                    <div>teacher messages</div>
+                @endauth
 
-                        <td class="px-6 py-4 whitespace-nowrap">
+                @auth('student')
+                    @foreach($messages as $message)
 
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0 h-10 w-10">
-                                    <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
-                                </div>
-                                <div class="ml-4">
-                                    <div class="text-sm font-medium text-gray-900 flex">
-                                        {{$message->teacher->name}}
-                                        <span class="w-2.5 h-2.5 mr-4 bg-red-500 rounded-full ml-2" aria-hidden="true"></span>
+                        <tr onclick="{{url("homeworks")}}">
+
+                            <td class="px-6 py-4 whitespace-nowrap">
+
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10">
+                                        <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
                                     </div>
-                                    <div class="text-sm text-gray-500">{{$message->teacher->email}}</div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900 flex">
+                                            {{$message->teacher->name}}
+                                            <span class="w-2.5 h-2.5 mr-4 bg-red-500 rounded-full ml-2" aria-hidden="true"></span>
+                                        </div>
+                                        <div class="text-sm text-gray-500">{{$message->teacher->email}}</div>
+                                    </div>
                                 </div>
-                            </div>
 
-                        </td>
+                            </td>
 
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">{{$message->title}}</div>
-                        </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">{{$message->title}}</div>
+                            </td>
 
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-200 text-green-800"> {{$message->created_at}}  </div>
-                        </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-200 text-green-800"> {{$message->created_at}}  </div>
+                            </td>
 
-                        <td class="whitespace-nowrap text-right text-sm font-medium pr-5">
-                            <button class="text-gray-900 hover:text-white hover:bg-purple-600 hover:border-purple-600 border-2 rounded-l p-2 transition: duration-300 ease-in-out">Mesaja Git</button>
-                        </td>
+                            <td class="whitespace-nowrap text-right text-sm font-medium pr-5">
+                                <button class="text-gray-900 hover:text-white hover:bg-purple-600 hover:border-purple-600 border-2 rounded-l p-2 transition: duration-300 ease-in-out">Mesaja Git</button>
+                            </td>
 
-                    </tr>
+                        </tr>
 
-                @endforeach
+                    @endforeach
+                @endauth
+
+                @auth('user')
+                    <div>user messages</div>
+                @endauth
+
+
                 </tbody>
 
             </table>

@@ -22,10 +22,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
         \App\Models\User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        Teacher::factory()->create([
+            'name' => 'Test Teacher',
+            'email' => 'teacher@example.com',
+        ]);
+
+        Student::factory()->create([
+            'name' => 'Test Student',
+            'email' => 'student@example.com',
+        ]);
+
 
 //        Message::factory(10)->create();
 
@@ -48,10 +60,10 @@ class DatabaseSeeder extends Seeder
                     'school_class_id' => $schoolClass->id,
                 ])->each(function (Student $student) {
                     $teacher = Teacher::where('school_class_id', $student->school_class_id)->inRandomOrder()->first();
-                    Message::factory(2)->create([
-                        'student_id' => $student->id,
-                        'teacher_id' => $teacher->id,
-                    ]);
+//                    Message::factory(2)->create([
+//                        'student_id' => $student->id,
+//                        'teacher_id' => $teacher->id,
+//                    ]);
 
 
 

@@ -145,7 +145,7 @@
                         Sınavlarım
                     </a>
 
-                    <a href="/messages" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                    <a href="{{ route(auth('teacher')->check() ? 'teacher.messages.index' : 'messages.index') }}" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
                         <!-- Heroicon name: outline/clock -->
                         <i class="fa-solid fa-envelope text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>
                         Mesajlarım
@@ -156,11 +156,21 @@
                         <i class="fa-solid fa-calendar-days text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>
                         Devamsızlık
                     </a>
-                    <a href="/teachers" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
-                        <!-- Heroicon name: outline/clock -->
-                        <i class="fa-solid fa-chalkboard-user text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>
-                        Öğretmenler
-                    </a>
+
+                    @if(auth('student')->check())
+                        <a href="{{ route('teachers.index') }}" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                            <!-- Heroicon name: outline/clock -->
+                            <i class="fa-solid fa-chalkboard-user text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>
+                            Öğretmenler
+                        </a>
+                    @endif
+                    @if(auth('teacher')->check())
+                        <a href="{{ route('teacher.students.index') }}" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                            <!-- Heroicon name: outline/clock -->
+                            <i class="fa-solid fa-chalkboard-user text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>
+                            Öğrenciler
+                        </a>
+                    @endif
                 </div>
 
 
@@ -257,9 +267,11 @@
             </div>
         </div>
         <main class="flex-1">
+
             @foreach($errors->all() as $error)
                 <div>{{$error}}</div>
             @endforeach
+
             <div> {{ $slot }} </div>
         </main>
     </div>

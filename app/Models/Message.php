@@ -11,20 +11,23 @@ class Message extends Model
     use HasFactory;
 
     protected $fillable = [
-        'student_id',
-        'teacher_id',
-        'title',
+        'sender_id',
         'content',
     ];
 
 
-    public function student(): BelongsTo
-    {
-        return $this->belongsTo(Student::class);
-    }
-
-    public function teacher(): BelongsTo
-    {
-        return $this->belongsTo(Teacher::class);
-    }
+//    public function users(): \Illuminate\Database\Eloquent\Relations\MorphToMany
+//    {
+//        return $this->morphedByMany(User::class, 'user', 'message_user')->withTimestamps();
+//    }
+//
+//    public function teachers(): \Illuminate\Database\Eloquent\Relations\MorphToMany
+//    {
+//        return $this->morphedByMany(Teacher::class, 'user', 'message_user')->withTimestamps();
+//    }
+//
+//    public function students(): \Illuminate\Database\Eloquent\Relations\MorphToMany
+//    {
+//        return $this->morphedByMany(Student::class, 'user', 'message_user')->withTimestamps();
+//    }
 }

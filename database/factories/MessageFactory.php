@@ -18,11 +18,12 @@ class MessageFactory extends Factory
      */
     public function definition(): array
     {
+        $userTypes = ['App\Models\User', 'App\Models\Teacher', 'App\Models\Student'];
+        $sender = $this->faker->randomElement($userTypes)::factory()->create();
+
         return [
-            'student_id' => Student::factory(),
-            'teacher_id' => Teacher::factory(),
-            'title' =>fake()->title,
-            'content'=>fake()->realText,
+            'content' => $this->faker->realText(),
+            'sender_id' => $sender->id,
         ];
     }
 }
