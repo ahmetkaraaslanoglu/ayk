@@ -106,7 +106,6 @@
                                     <div class="w-150 h-150">
 
                                         @php
-                                            $imageUrl= "https://img.freepik.com/free-vector/school-supplies-books-pencils-apple_24908-56504.jpg?w=900&t=st=1680994850~exp=1680995450~hmac=47dde76ff2ad57b31097bc8ea678f7457ea761546735250efa6f53fec3d3fc04";
                                             if($homework->lesson=="Kimya"){
                                                 $imageUrl="https://imgyukle.com/f/2023/04/09/QeRPRP.png";
                                             } elseif($homework->lesson=="Matematik") {
@@ -114,7 +113,9 @@
                                             } elseif($homework->lesson=="Fizik") {
                                                 $imageUrl="https://www.resimupload.org/images/2023/04/09/7677494.jpg";
                                             } elseif($homework->lesson=="Biyoloji"){
-                                            $imageUrl="https://img.freepik.com/free-vector/school-supplies-books-pencils-apple_24908-56504.jpg?w=900&t=st=1680994850~exp=1680995450~hmac=47dde76ff2ad57b31097bc8ea678f7457ea761546735250efa6f53fec3d3fc04";
+                                                $imageUrl="https://img.freepik.com/free-vector/school-supplies-books-pencils-apple_24908-56504.jpg?w=900&t=st=1680994850~exp=1680995450~hmac=47dde76ff2ad57b31097bc8ea678f7457ea761546735250efa6f53fec3d3fc04";
+                                            }else{
+                                                $imageUrl= "https://img.freepik.com/free-vector/school-supplies-books-pencils-apple_24908-56504.jpg?w=900&t=st=1680994850~exp=1680995450~hmac=47dde76ff2ad57b31097bc8ea678f7457ea761546735250efa6f53fec3d3fc04";
                                             }
                                         @endphp
                                         <img src="{{ $imageUrl }}" alt="resim" class="w-full h-full object-center object-cover rounded">

@@ -9,14 +9,37 @@
 
 
         <div class="p-16">
+
+            <label for="school_classes">Sınıflar</label>
+
+            <select name="school_classes" id="school_classes" onchange="updateSelectedOption()">
+                <option value="0">Seçiniz</option>
+                @foreach($students_by_class as $class_info)
+                    <option value="{{$class_info['school_class']->id}}">{{ $class_info['school_class']->name }}</option>
+                @endforeach
+            </select>
+
+            <p id="selected_option"></p>
+
+            <script>
+                function updateSelectedOption() {
+                    const select_element = document.getElementById("school_classes");
+                    const selected_option_text = select_element.options[select_element.selectedIndex].text;
+                    document.getElementById("selected_option").innerHTML = "Seçilen seçenek: " + selected_option_text;
+                }
+            </script>
+
             @foreach($students_by_class as $class_info)
-                <h3>{{ $class_info['school_class']->name }}</h3>
-                <ul>
-                    @foreach($class_info['students'] as $student)
-                        <li>{{ $student->name }}</li>
-                    @endforeach
+                <ul class="hidden">
+                    @if(updateSelectedOption() == $class_info['school_class']->name)
+                        @foreach($class_info['students'] as $student)
+                            <li>{{ $student->name }}</li>
+                        @endforeach
+                    @endif
+
                 </ul>
             @endforeach
+
         </div>
 
 

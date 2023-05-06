@@ -149,17 +149,12 @@
                                         <div class="text-sm text-gray-900">Oluşturulma Tarihi: {{date('d-m-Y', strtotime($exam->created_at))}}</div>
                                         <div class="text-sm text-gray-900">Son Teslim Tarihi: {{date('d-m-Y', strtotime($exam->deadline))}}</div>
                                     </td>
-                                    {{--                                <td class="px-6 py-4 whitespace-nowrap">--}}
-                                    {{--                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Active </span>--}}
-                                    {{--                                </td>--}}
-                                    {{--                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Admin</td>--}}
                                     <td class="whitespace-nowrap text-right text-sm font-medium pr-5">
                                         <a href="//{{$exam->exam_link}}" target="_blank" class="text-white bg-purple-500 hover:bg-purple-800 rounded-md p-2 transition: duration-500 ease-in-out">Sınava Git</a>
                                     </td>
                                 </tr>
                             @endforeach
                         @endauth
-
 
                         <!-- More people... -->
                         </tbody>
