@@ -8,26 +8,47 @@
         </div>
 
 
-        <div class="p-16">
-            @foreach($teachers as $teacher)
-                <div class="bg-gray-200 p-4 w-1/6 rounded-tl-2xl rounded-br-2xl">
-                    <img src="https://www.resimupload.org/images/2023/04/09/download.png" alt="deneme" class="rounded-br-2xl rounded-tl-2xl">
+        <div class="flex justify-center mt-8">
+            <div class="bg-white w-[90%]">
+                <table class="min-w-full divide-y divide-gray-200">
 
-                    <div class="items-center">
-                        <p class="text-gray-600 mt-3 text-center">Matematik</p>
-                        <p class="mt-3 font-medium text-center">{{$teacher->name}}</p>
-                    </div>
+                    <thead>
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Öğretmenler</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">E-postalar</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mesaj Gönder</th>
+                    </tr>
+                    </thead>
 
-                    <div class="mt-4">
-                        <button class="bg-white w-full p-2 rounded-br-2xl rounded-tl-2xl font-medium drop-shadow-md hover:bg-orange-400 hover:text-white transition duration-300">
-                            Mesaj Gönder
-                        </button>
-                    </div>
+                    <tbody class="bg-white divide-y divide-gray-200 ">
+                    @foreach($teachers as $teacher)
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10">
+                                        <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900">{{$teacher->name}}</div>
+                                    </div>
+                                </div>
+                            </td>
 
-                </div>
-            @endforeach
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-500">{{$teacher->email}}</div>
+                            </td>
+
+                            <td>
+                                <div class="mt-4 flex sm:mt-0 sm:ml-4">
+                                    <button id="modal-button-{{ $teacher->id }}" type="button" class="order-0 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-800 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-1 sm:ml-3">Mesaj Oluştur</button>
+                                </div>
+                            </td>
+                        </tr>
+
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
-
-
     </div>
 </x-app-layout>

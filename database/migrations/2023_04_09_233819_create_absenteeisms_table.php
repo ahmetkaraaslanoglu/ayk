@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('absenteeisms', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Student::class);
+            $table->foreignIdFor(\App\Models\Teacher::class);
             $table->date('absenteeism_date');
             $table->boolean('excuse');
             $table->timestamps();

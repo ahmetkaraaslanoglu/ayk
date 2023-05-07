@@ -4,6 +4,7 @@
         @endforeach
 
     <div class="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
+
         <div class="flex-1 min-w-0">
             <h1 class="text-2xl font-extrabold tracking-tight text-gray-900">Mesaj Kutusu</h1>
         </div>
@@ -72,11 +73,10 @@
 {{--        Modal Bitiş    --}}
     </div>
 
-
+            @auth('student')
     <div class="flex justify-center mt-8">
         <div class="bg-white w-[90%]">
             <table class="min-w-full divide-y divide-gray-200">
-
                 <thead>
                 <tr>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gönderen</th>
@@ -87,11 +87,6 @@
 
                 <tbody class="bg-white divide-y divide-gray-200 ">
 
-                @auth('teacher')
-                    <div>teacher messages</div>
-                @endauth
-
-                @auth('student')
                     @foreach($messages as $message)
 
                         <tr onclick="{{url("homeworks")}}">
@@ -129,12 +124,6 @@
 
                     @endforeach
                 @endauth
-
-                @auth('user')
-                    <div>user messages</div>
-                @endauth
-
-
                 </tbody>
 
             </table>

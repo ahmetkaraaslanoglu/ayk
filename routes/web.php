@@ -38,6 +38,7 @@ Route::middleware('auth:teacher')->prefix('/teacher')->name('teacher.')->group(f
     Route::resource('exams',\App\Http\Controllers\Web\Teacher\ExamController::class);
     Route::resource('messages',\App\Http\Controllers\Web\Teacher\MessageController::class);
     Route::resource('students',\App\Http\Controllers\Web\Teacher\StudentController::class);
+    Route::resource('absenteeism',\App\Http\Controllers\Web\Teacher\AbsenteeismController::class);
 
    Route::view('/asd','web.teams.team');
 });

@@ -77,5 +77,10 @@ class Teacher extends Model implements Authenticatable
         return $this->hasMany(Exam::class,'owner_id','id');
     }
 
+    public function absenteeisms(): HasMany
+    {
+        return $this->hasMany(Absenteeism::class);
+    }
+
 
 }

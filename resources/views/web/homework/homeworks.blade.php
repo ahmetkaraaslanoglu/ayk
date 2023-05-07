@@ -13,87 +13,110 @@
             @endauth
         </div>
 
-        <div id="modal" class="relative z-10 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-            <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
+        @auth('teacher')
+            <div id="modal" class="relative z-10 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
 
-            <div class="fixed inset-0 z-10 overflow-y-auto">
-                <div class="flex min-h-screen items-center justify-center">
-                    <div class="relative bg-white w-96 rounded-lg shadow-lg">
-                        <div class="px-6 py-4">
-                            <div class="flex justify-between items-center">
-                                <h2 class="font-bold text-2xl" id="modal-title">Mesaj Gönder</h2>
+                <div class="fixed inset-0 z-10 overflow-y-auto">
+                    <div class="flex min-h-screen items-center justify-center">
+                        <div class="relative bg-white w-96 rounded-lg shadow-lg">
+                            <div class="px-6 py-4">
+                                <div class="flex justify-between items-center">
+                                    <h2 class="font-bold text-2xl" id="modal-title">Mesaj Gönder</h2>
 
-                                <button id="modal-close-button" class="text-gray-500 hover:text-gray-400 focus:outline-none">
-                                    <i class="fa-solid fa-xmark"></i>
-                                </button>
+                                    <button id="modal-close-button" class="text-gray-500 hover:text-gray-400 focus:outline-none">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
 
-                            </div>
+                                </div>
 
 
 
-                            <div class="mt-4">
-                                <form class="max-w-md mx-auto" method="post" action="{{ route('teacher.homeworks.store') }}">
-                                    @csrf
-                                    <div class="mb-4">
-                                        <label class="block text-gray-700 font-bold mb-2" for="lesson">
-                                            Ders Adı:
-                                        </label>
-                                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="lesson" type="text" placeholder="Ders Adı" name="lesson">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label class="block text-gray-700 font-bold mb-2" for="subject">
-                                            Ödevin Konusu:
-                                        </label>
-                                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="subject" type="text" placeholder="Ödevin Başlığı" name="subject">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label class="block text-gray-700 font-bold mb-2" for="deadline">
-                                            Bitiş Tarihi:
-                                        </label>
-                                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="deadline" type="datetime-local"  name="deadline">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label class="block text-gray-700 font-bold mb-2" for="content">
-                                            İçerik:
-                                        </label>
-                                        <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="content" rows="5" placeholder="Ödev" name="content"></textarea>
-                                    </div>
-                                    <div>
-                                        @foreach(\App\Models\SchoolClass::query()->get() as $class)
-                                            <div>
-                                                <label>
-                                                    {{$class->name}}
-                                                </label>
-                                                <input type="checkbox" name="classes[]" value="{{$class->id}}" >
+                                <div class="mt-4">
+                                    <form class="max-w-md mx-auto" method="post" action="{{ route('teacher.homeworks.store') }}">
+                                        @csrf
+                                        <div class="mb-4">
+                                            <label class="block text-gray-700 font-bold mb-2" for="lesson">
+                                                Ders Adı:
+                                            </label>
+                                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="lesson" type="text" placeholder="Ders Adı" name="lesson">
+                                        </div>
+                                        <div class="mb-4">
+                                            <label class="block text-gray-700 font-bold mb-2" for="subject">
+                                                Ödevin Konusu:
+                                            </label>
+                                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="subject" type="text" placeholder="Ödevin Başlığı" name="subject">
+                                        </div>
+                                        <div class="mb-4">
+                                            <label class="block text-gray-700 font-bold mb-2" for="deadline">
+                                                Bitiş Tarihi:
+                                            </label>
+                                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="deadline" type="datetime-local"  name="deadline">
+                                        </div>
+                                        <div class="mb-4">
+                                            <label class="block text-gray-700 font-bold mb-2" for="content">
+                                                İçerik:
+                                            </label>
+                                            <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="content" rows="5" placeholder="Ödev" name="content"></textarea>
+                                        </div>
+                                        <div class="class-list">
+                                            @foreach(auth('teacher')->user()->school_classes as $class)
+                                                <div class="class-item cursor-pointer relative inline-block mr-4 mb-4">
+                                                    <label class="class-label inline-block py-2 px-4 bg-purple-500 text-white rounded-md">
+                                                        {{$class->name}}
+                                                    </label>
+                                                    <input onchange="toggleClassOpacity(this)" class="class-checkbox absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer" type="checkbox" name="classes[]" value="{{$class->id}}">
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+                                        <script>
+                                            function toggleClassOpacity(checkbox) {
+                                                const label = checkbox.parentElement.querySelector(".class-label");
+                                                if (checkbox.checked) {
+                                                    label.style.opacity = 0.5;
+                                                } else {
+                                                    label.style.opacity = 1;
+                                                }
+                                            }
+                                        </script>
+                                        <style>
+                                            .class-item {
+                                                position: relative;
+                                            }
+
+                                            .class-checkbox:checked + .class-label {
+                                                opacity: 0.5;
+                                            }
+                                        </style>
+
+                                        <div class="flex items-center justify-end">
+                                            <button id="send-button" class="bg-purple-600 hover:bg-purple-800 transition text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                                                Ödevi Oluştur
+                                            </button>
+
+                                            <div id="alertBox" class="fixed top-0 mt-8 p-4 mx-auto rounded-md bg-green-600 text-white hidden">
+                                                <p>Ödeviniz başarıyla gönderildi!</p>
                                             </div>
-
-                                        @endforeach
-                                    </div>
-                                    <div class="flex items-center justify-end">
-                                        <button id="send-button" class="bg-purple-600 hover:bg-purple-800 transition text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                                            Ödevi Oluştur
-                                        </button>
-
-                                        <div id="alertBox" class="fixed top-0 mt-8 p-4 mx-auto rounded-md bg-green-600 text-white hidden">
-                                            <p>Ödeviniz başarıyla gönderildi!</p>
+                                            <div id="falseAlertBox" class="fixed top-0 mt-8 p-4 mx-auto rounded-md bg-red-500 text-white hidden">
+                                                <p>Lütfen tüm alanları doldurduğunuzdan emin olunuz.</p>
+                                            </div>
                                         </div>
-                                        <div id="falseAlertBox" class="fixed top-0 mt-8 p-4 mx-auto rounded-md bg-red-500 text-white hidden">
-                                            <p>Lütfen tüm alanları doldurduğunuzdan emin olunuz.</p>
-                                        </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
+
                             </div>
-
                         </div>
                     </div>
                 </div>
-            </div>
 
-        </div>
+            </div>
+        @endauth
+
+
 
         <div class="py-2 w-full lg:px-8 flex justify-center">
             <ul role="list" class="inline-flex space-x-5 sm:mx-6 lg:mx-0 lg:space-x-0 lg:grid lg:grid-cols-5 lg:gap-x-8 p-10 w-full">
-
                 @auth('user')
                     <div>user homeworkpage</div>
                 @endauth

@@ -69,6 +69,7 @@ class DatabaseSeeder extends Seeder
 
                     Absenteeism::factory(5)->create([
                         'student_id' => $student->id,
+                        'teacher_id' => $teacher->id,
                     ]);
                 });
             });

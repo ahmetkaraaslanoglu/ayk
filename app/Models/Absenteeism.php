@@ -12,6 +12,7 @@ class Absenteeism extends Model
 
     protected $fillable = [
         'student_id',
+        'teacher_id',
         'absenteeism_date',
         'excuse',
     ];
@@ -19,5 +20,10 @@ class Absenteeism extends Model
     public function student(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Student::class);
+    }
+
+    public function teacher(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Teacher::class);
     }
 }

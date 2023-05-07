@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Student;
 
 use App\Http\Controllers\Controller;
+use App\Models\Message;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 
@@ -63,5 +64,10 @@ class TeacherController extends Controller
     public function destroy(Teacher $teacher)
     {
         //
+    }
+
+    public function sendMessageToTeacher(Request $request)
+    {
+//
     }
 }
