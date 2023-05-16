@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class SchoolClass extends Model
+class Team extends Model
 {
     use HasFactory;
 
-    protected $table = 'school_classes';
+    protected $table = 'teams';
 
     protected $fillable = [
-        'school_id',
         'name',
+        'user_id',
     ];
 
     public function users(): BelongsToMany
@@ -23,8 +22,12 @@ class SchoolClass extends Model
         return $this
             ->belongsToMany(
                 User::class,
-                'user_school_classes',
+                'team_members',
+                'team_id',
+                'user_id',
             )
-            ->withPivot(['role']);
+            ->withPivot([
+                'role',
+            ]);
     }
 }

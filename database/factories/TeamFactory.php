@@ -2,12 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ConversationMember>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Team>
  */
-class ConversationMemberFactory extends Factory
+class TeamFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +18,8 @@ class ConversationMemberFactory extends Factory
     public function definition(): array
     {
         return [
-//
+            'user_id' => User::factory(),
+            'name' => $this->faker->word(),
         ];
     }
 }

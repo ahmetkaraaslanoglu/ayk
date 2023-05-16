@@ -2,14 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Models\School;
+use App\Models\ChatRoom;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Exam>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ChatRoomMessage>
  */
-class ExamFactory extends Factory
+class ChatRoomMessageFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,10 +19,9 @@ class ExamFactory extends Factory
     public function definition(): array
     {
         return [
-            'school_id' => School::factory(),
+            'chat_room_id' => ChatRoom::factory(),
             'user_id' => User::factory(),
-            'link' => fake()->url(),
-            'deadline_at' => fake()->dateTimeBetween('now', '+1 month'),
+            'message' => fake()->sentence(),
         ];
     }
 }

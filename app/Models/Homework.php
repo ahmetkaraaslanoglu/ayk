@@ -14,28 +14,17 @@ class Homework extends Model
     protected $table = 'homework';
 
     protected $fillable = [
-        'owner_id',
-        'content',
-        'deadline',
-        'lesson',
+        'school_id',
+        'user_id',
         'subject',
         'photo',
-        'is_done',
+        'content',
+        'deadline_at',
+        'completed_at',
     ];
 
-    public function school_classes():BelongsToMany
-    {
-        return $this->belongsToMany(
-            SchoolClass::class,
-            'school_class_homework',
-            'school_class_id',
-            'homework_id',
-        );
-    }
-
-    public function owner():HasOne
-    {
-        return $this->hasOne(Teacher::class,'id','owner_id');
-    }
-
+    protected $casts = [
+        'deadline_at' => 'datetime',
+        'completed_at' => 'datetime',
+    ];
 }

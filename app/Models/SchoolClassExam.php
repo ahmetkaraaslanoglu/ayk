@@ -10,18 +10,10 @@ class SchoolClassExam extends Model
 {
     use HasFactory;
 
+    protected $table = 'school_class_exams';
+
     protected $fillable = [
         'school_class_id',
         'exam_id',
     ];
-
-    public function school_class() : HasOne
-    {
-        return $this->hasOne(SchoolClass::class);
-    }
-
-    public function exam() : HasOne
-    {
-        return $this->hasOne(Exam::class);
-    }
 }

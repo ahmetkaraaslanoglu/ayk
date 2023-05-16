@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Exam;
+use App\Models\SchoolClass;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('school_class_exams', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\SchoolClass::class);
-            $table->foreignIdFor(\App\Models\Exam::class);
+            $table->foreignIdFor(SchoolClass::class);
+            $table->foreignIdFor(Exam::class);
             $table->timestamps();
         });
     }

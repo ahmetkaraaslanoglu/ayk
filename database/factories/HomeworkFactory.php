@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\School;
 use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,15 +19,14 @@ class HomeworkFactory extends Factory
      */
     public function definition(): array
     {
-        $lessons = array('Matematik','Edebiyat','Biyoloji','Fizik','Kimya','Tarih','Coğrafya');
         return [
-            'lesson' => $lessons[rand(0, count($lessons) - 1)],
-            'subject' => fake()->sentence,
-            'content' => fake()->text,
-            'deadline' => fake()->date,
-            'photo' => fake()->imageUrl,
-            'is_done' => fake()->boolean(),
-
+            'school_id' => School::factory(),
+            'user_id' => User::factory(),
+            'subject' => fake()->sentence(),
+            'photo' => fake()->imageUrl(),
+            'content' => fake()->paragraph(),
+            'deadline_at' => fake()->dateTimeBetween('now', '+1 month'),
+            'completed_at' => fake()->dateTimeBetween('now', '+1 month'),
         ];
     }
 }

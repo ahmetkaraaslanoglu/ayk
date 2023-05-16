@@ -2,13 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\Lesson;
 use App\Models\SchoolClass;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Student>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\SchoolClassLesson>
  */
-class StudentFactory extends Factory
+class SchoolClassLessonFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,10 +20,7 @@ class StudentFactory extends Factory
     {
         return [
             'school_class_id' => SchoolClass::factory(),
-            'name' => fake()->name,
-            'email' => $this->faker->unique()->safeEmail(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-//            'profile_photo_path' => null,
+            'lesson_id' => Lesson::factory(),
         ];
     }
 }

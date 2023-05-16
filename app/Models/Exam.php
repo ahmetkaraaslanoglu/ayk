@@ -11,26 +11,16 @@ class Exam extends Model
 {
     use HasFactory;
 
+    protected $table = 'exams';
+
     protected $fillable = [
-        'owner_id',
-        'deadline',
-        'exam_link',
-        'sender',
+        'school_id',
+        'user_id',
+        'link',
+        'deadline_at',
     ];
 
-    public function school_classes():BelongsToMany
-    {
-        return $this->belongsToMany(
-            SchoolClass::class,
-            'school_class_exams',
-            'school_class_id',
-            'exam_id',
-        );
-    }
-
-    public function owner():HasOne
-    {
-        return $this->hasOne(Teacher::class);
-
-    }
+    protected $casts = [
+        'deadline_at' => 'datetime',
+    ];
 }

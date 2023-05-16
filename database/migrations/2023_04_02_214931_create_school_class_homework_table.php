@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Homework;
+use App\Models\SchoolClass;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,10 +13,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('school_class_homework', function (Blueprint $table) {
+        Schema::create('school_class_homeworks', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\SchoolClass::class);
-            $table->foreignIdFor(\App\Models\Homework::class);
+            $table->foreignIdFor(SchoolClass::class);
+            $table->foreignIdFor(Homework::class);
             $table->timestamps();
         });
     }

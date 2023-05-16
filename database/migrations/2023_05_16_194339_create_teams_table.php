@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,9 +12,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('homework', function (Blueprint $table) {
-            $table->foreignIdFor(\App\Models\Teacher::class,'owner_id')->nullable()->default(null)->after('id');
-
+        Schema::create('teams', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(User::class);
+            $table->string('name');
+            $table->timestamps();
         });
     }
 
@@ -22,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('homework', function (Blueprint $table) {
-            $table->dropColumn('owner_id');
-        });
+        Schema::dropIfExists('teams');
     }
 };

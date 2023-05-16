@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Team;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,10 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('teacher_school_classes', function (Blueprint $table) {
+        Schema::create('chat_rooms', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Teacher::class);
-            $table->foreignIdFor(\App\Models\SchoolClass::class);
+            $table->foreignIdFor(Team::class)->nullable()->default(null);
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('teacher_school_classes');
+        Schema::dropIfExists('chat_rooms');
     }
 };

@@ -11,17 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('teachers', function (Blueprint $table) {
+        Schema::create('lessons', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\SchoolClass::class);
             $table->string('name');
-            $table->string('email');
-            $table->string('password');
-            $table->string('token')->nullable()->default(null);
-//            $table->string('profile_photo_path', 2048)->nullable();
-            $table->string('profile_photo')->nullable()->default(null);
             $table->timestamps();
-
         });
     }
 
@@ -30,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('teacher');
+        Schema::dropIfExists('lessons');
     }
 };

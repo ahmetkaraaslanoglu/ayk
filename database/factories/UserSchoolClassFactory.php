@@ -3,13 +3,13 @@
 namespace Database\Factories;
 
 use App\Models\SchoolClass;
-use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TeacherSchoolClass>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UserSchoolClass>
  */
-class TeacherSchoolClassFactory extends Factory
+class UserSchoolClassFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,8 +19,9 @@ class TeacherSchoolClassFactory extends Factory
     public function definition(): array
     {
         return [
-            'teacher_id' => Teacher::factory(),
+            'user_id' => User::factory(),
             'school_class_id' => SchoolClass::factory(),
+            'role' => fake()->randomElement(['teacher', 'student']),
         ];
     }
 }

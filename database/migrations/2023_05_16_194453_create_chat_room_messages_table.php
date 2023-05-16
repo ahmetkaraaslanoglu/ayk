@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\ChatRoom;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,11 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('student_school_class_exams', function (Blueprint $table) {
+        Schema::create('chat_room_messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Student::class);
-            $table->foreignIdFor(\App\Models\SchoolClass::class);
-            $table->foreignIdFor(\App\Models\Exam::class);
+            $table->foreignIdFor(ChatRoom::class);
+            $table->foreignIdFor(User::class);
+            $table->longText('message');
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('student_school_class_exams');
+        Schema::dropIfExists('chat_room_messages');
     }
 };

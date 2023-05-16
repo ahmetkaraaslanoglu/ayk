@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\School;
+use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,10 +16,10 @@ return new class extends Migration
     {
         Schema::create('exams', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Teacher::class,'owner_id')->nullable()->default(null);
-            $table->date('deadline');
-            $table->string('exam_link');
-            $table->string('sender');
+            $table->foreignIdFor(School::class);
+            $table->foreignIdFor(User::class); // teacher
+            $table->string('link');
+            $table->timestamp('deadline_at')->nullable();
             $table->timestamps();
         });
     }

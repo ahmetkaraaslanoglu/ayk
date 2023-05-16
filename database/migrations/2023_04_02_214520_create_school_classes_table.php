@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\School;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('school_classes', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\School::class);
+            $table->foreignIdFor(School::class);
             $table->string('name');
             $table->timestamps();
         });

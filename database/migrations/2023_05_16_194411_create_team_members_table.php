@@ -1,5 +1,8 @@
 <?php
 
+use App\Enums\TeamRole;
+use App\Models\Team;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,14 +14,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('students', function (Blueprint $table) {
+        Schema::create('team_members', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\SchoolClass::class);
-            $table->string('name');
-            $table->string('email');
-            $table->string('password');
-            $table->string('token')->nullable()->default(null);
-//            $table->string('profile_photo_path', 2048)->nullable();
+            $table->foreignIdFor(Team::class);
+            $table->foreignIdFor(User::class);
+            $table->enum('role', array_map(fn (TeamRole $role) => $role->value, TeamRole::cases()))->nullable()->default(TeamRole::Member->value);
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('students');
+        Schema::dropIfExists('team_members');
     }
 };
