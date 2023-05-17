@@ -10,6 +10,6 @@ class DashboardController extends Controller
     public function index()
     {
         $user = auth()->user();
-        return response()->view('web2.dashboard.dashboard',compact('user'));
+        return response()->view('web.dashboard.dashboard',compact('user'));
     }
 }

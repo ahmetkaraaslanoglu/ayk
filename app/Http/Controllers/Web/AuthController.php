@@ -10,7 +10,7 @@ class AuthController extends Controller
 
     public function view()
     {
-        return response()->view('web2.auth.login');
+        return response()->view('web.auth.login');
     }
 
     public function login(Request $request)

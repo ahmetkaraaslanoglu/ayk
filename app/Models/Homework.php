@@ -27,4 +27,13 @@ class Homework extends Model
         'deadline_at' => 'datetime',
         'completed_at' => 'datetime',
     ];
+
+    public function school(): HasOne
+    {
+        return $this->hasOne(
+            School::class,
+            'id',
+            'school_id',
+        );
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\Role;
+use App\Models\Lesson;
 use App\Models\School;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,6 +16,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Lesson::class)->nullable()->default(null);
             $table->foreignIdFor(School::class)->nullable()->default(null);
             $table->enum('role', array_map(fn (Role $role) => $role->value, Role::cases()))->default(Role::Guest->value);
             $table->string('name');
@@ -22,6 +24,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('profile_photo_url')->nullable()->default(null);
+            $table->string('token');
             $table->rememberToken();
             $table->timestamps();
         });

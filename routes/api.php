@@ -18,6 +18,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/chat_rooms/{chat_room}/last', [\App\Http\Controllers\Api\ChatRoomController::class, 'getLastMessage']);
+
 //Route::prefix('/auth')->name('.auth')->group(function () {
 //    Route::prefix('/student')->name('.student')->group(function () {
 //        Route::post('/login',[\App\Http\Controllers\Api\Auth\StudentController::class,'login'])->name('student.login');

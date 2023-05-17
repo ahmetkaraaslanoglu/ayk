@@ -8,6 +8,10 @@
     @vite(['resources/css/app.css','resources/js/app.js'])
     <title>{{ $title ?? config('app.name') }}</title>
     <script src="https://kit.fontawesome.com/d4a7d721de.js" crossorigin="anonymous"></script>
+
+    @auth()
+        <meta name="token" content="{{ auth()->user()->token }}">
+    @endauth
 </head>
 <body>
 <div class="min-h-full">
@@ -104,16 +108,18 @@
                             Anasayfa
                         </a>
 
-                        <a href="{{ route(auth('teacher')->check() ? 'teacher.homeworks.index' : 'homeworks.index') }}" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
-                            <!-- Heroicon name: outline/view-list -->
-                            <!--
-                              Heroicon name: outline/home
+                        @can('viewAny', \App\Models\Homework::class)
+                            <a href="#" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                                <!-- Heroicon name: outline/view-list -->
+                                <!--
+                                  Heroicon name: outline/home
 
-                              Current: "text-gray-500", Default: "text-gray-400 group-hover:text-gray-500"
-                            -->
-                            <i class="fa-solid fa-book text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>
-                            Ödevlerim
-                        </a>
+                                  Current: "text-gray-500", Default: "text-gray-400 group-hover:text-gray-500"
+                                -->
+                                <i class="fa-solid fa-book text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>
+                                Ödevlerim
+                            </a>
+                        @endcan
 
                         <a href="#" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
                             <!-- Heroicon name: outline/clock -->
@@ -134,11 +140,19 @@
                         </a>
 
 
-                        <a href="#" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
-                            <!-- Heroicon name: outline/clock -->
-                            <i class="fa-solid fa-chalkboard-user text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>
-                            Öğretmenler
-                        </a>
+                        @if (auth()->user()->role === \App\Enums\Role::Teacher)
+                            <a href="#" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                                <!-- Heroicon name: outline/clock -->
+                                <i class="fa-solid fa-chalkboard-teacher text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>
+                                Öğrencilerim
+                            </a>
+                        @elseif (auth()->user()->role === \App\Enums\Role::Student)
+                            <a href="#" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                                <!-- Heroicon name: outline/clock -->
+                                <i class="fa-solid fa-chalkboard-teacher text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>
+                                Öğretmenlerim
+                            </a>
+                        @endif
 
                     </div>
 
@@ -180,5 +194,6 @@
     </div>
 </div>
 
+{{ $footer ?? null }}
 </body>
 </html>

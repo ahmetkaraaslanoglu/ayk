@@ -32,15 +32,19 @@ class DatabaseSeeder extends Seeder
 
         School::factory(15)->create()->each(function (School $school) {
             // create 5 User::class with teacher role
-            User::factory(5)->create([
-                'role' => Role::Teacher->value,
-                'school_id' => $school->id,
-            ]);
+            for ($i = 0; $i < 5; $i++) {
+                User::factory()->create([
+                    'role' => Role::Teacher->value,
+                    'school_id' => $school->id,
+                    'lesson_id' => Lesson::query()->inRandomOrder()->first(['id'])->id,
+                ]);
+            }
 
             // create 20 User::class with student role
             User::factory(20)->create([
                 'role' => Role::Student->value,
                 'school_id' => $school->id,
+                'lesson_id' => null,
             ]);
 
             $studentIds = User::query()
@@ -186,6 +190,7 @@ class DatabaseSeeder extends Seeder
                 'email' => $role->value . '@example.com',
                 'name' => $role->value . ' User',
                 'school_id' => null,
+                'lesson_id' => null,
             ]);
         }
     }

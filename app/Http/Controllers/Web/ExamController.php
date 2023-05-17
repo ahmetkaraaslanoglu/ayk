@@ -3,25 +3,19 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\Homework;
+use App\Models\Exam;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
-class HomeworkController extends Controller
+class ExamController extends Controller
 {
-    public function __construct()
-    {
-        $this->authorizeResource(Homework::class, 'homeworks');
-    }
-
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index()
     {
-        $homeworks = auth()->user()->homeworks;
+        $exams = auth()->user()->exams;
 
-        return response()->view('web.homeworks.index', compact('homeworks'));
+        return response()->view('web.exams.index', compact('exams'));
     }
 
     /**
@@ -43,7 +37,7 @@ class HomeworkController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Homework $homework)
+    public function show(Exam $exam)
     {
         //
     }
@@ -51,7 +45,7 @@ class HomeworkController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Homework $homework)
+    public function edit(Exam $exam)
     {
         //
     }
@@ -59,7 +53,7 @@ class HomeworkController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Homework $homework)
+    public function update(Request $request, Exam $exam)
     {
         //
     }
@@ -67,7 +61,7 @@ class HomeworkController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Homework $homework)
+    public function destroy(Exam $exam)
     {
         //
     }

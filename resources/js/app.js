@@ -5,20 +5,25 @@ window.Alpine = Alpine
 
 Alpine.start()
 
+if (document.getElementById('chat')) {
+    const token = document.head.querySelector('meta[name="token"]').content;
+    const chatRoomId = document.getElementById('chat').getAttribute('data-chat-room-id')
+    let lastMessageId = document.getElementById('chat').getAttribute('data-last-message-id');
 
-const modal = document.getElementById("modal");
-const modalButton = document.getElementById("modal-button");
-const modalCloseButton = document.getElementById("modal-close-button");
+    const requestLastMessage = function () {
+        axios.get('/api/chat_rooms/'+chatRoomId+'/last?lastMessageId=' + lastMessageId, {
+            headers: {
+                Authorization: 'Bearer ' + token,
+            }
+        }).then(response => {
+            if (response.data) {
+                lastMessageId = response.data.lastMessageId;
+                const chat = document.getElementById('chat');
+                chat.innerHTML = chat.innerHTML + response.data.html;
+                chat.scrollTop = chat.scrollHeight;
+            }
+        });
+    };
 
-modalButton.addEventListener("click", function () {
-    modal.classList.remove("hidden");
-});
-
-modalCloseButton.addEventListener("click", function () {
-    modal.classList.add("hidden");
-});
-
-
-
-
-
+    setInterval(() => requestLastMessage(), 1000);
+}
