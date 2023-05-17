@@ -7,13 +7,43 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    public function view(Request $request, string $type)
+
+    public function view()
+    {
+        return response()->view('web2.auth.login');
+    }
+
+    public function login(Request $request)
+    {
+        $validated = $request->validate([
+           'email' => 'required|email',
+           'password' => 'required',
+        ]);
+
+        auth()->logout();
+
+        if (auth()->attempt($validated)){
+            return redirect()->to('/dashboard');
+        }
+
+        return redirect()->route('/login')->withErrors([
+           'login' => 'Kullanıcı adı veya parola yanlış...'
+        ]);
+    }
+
+    public function logout()
+    {
+        auth()->logout();
+        return redirect()->to('/');
+    }
+
+    public function view2(Request $request, string $type)
     {
         abort_unless(in_array($type, ['user', 'student', 'teacher']), 400);
         return response()->view('web.auth.student_login', compact('type'));
     }
 
-    public function login(Request $request, string $type)
+    public function login2(Request $request, string $type)
     {
         abort_unless(in_array($type, ['user', 'student', 'teacher']), 400);
 
@@ -36,7 +66,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout()
+    public function logout2()
     {
         auth('student')->logout();
         return redirect()->to('/');

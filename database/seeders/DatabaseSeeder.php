@@ -169,7 +169,7 @@ class DatabaseSeeder extends Seeder
                 ChatRoomMember::factory()->create([
                     'chat_room_id' => $chatRoom->id,
                     'user_id' => $student->id,
-
+                ]);
 
                 for ($i = 0; $i < rand(1, 10); $i++) {
                     ChatRoomMessage::factory()->create([

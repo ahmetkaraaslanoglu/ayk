@@ -53,7 +53,7 @@
                 <div>
                     <span class="flex w-full justify-between items-center">
                         <span class="flex min-w-0 items-center justify-between space-x-3">
-                            <img class="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0" src="{{auth()->user() ?->profile_photo}}" alt="">
+                            <img class="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0" src="{{auth()->user() ?->profile_photo_url}}" alt="">
                                 <span class="flex-1 flex flex-col min-w-0">
                                     <span class="text-gray-900 text-sm font-medium truncate">{{auth()->user() ?->name}}</span>
 {{--                                    <span class="text-gray-900 text-sm font-medium truncate">{{auth('student')->user()->school_class->school_id }}</span>--}}
@@ -77,6 +77,16 @@
                 :id="$id('dropdown-button')"
                 style="display: none;"
             >
+                <!--
+                  Dropdown menu, show/hide based on menu state.
+
+                  Entering: "transition ease-out duration-100"
+                    From: "transform opacity-0 scale-95"
+                    To: "transform opacity-100 scale-100"
+                  Leaving: "transition ease-in duration-75"
+                    From: "transform opacity-100 scale-100"
+                    To: "transform opacity-0 scale-95"
+                -->
                 <div class=" z-10 mx-3 origin-top absolute right-0 left-0 mt-1 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu-button" tabindex="-1">
                     <div class="py-1" role="none">
                         <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
@@ -94,53 +104,65 @@
                 </div>
             </div>
 
-
             <!-- Navigation -->
             <nav class="px-3 mt-6">
-                    <div class="space-y-1">
-                        <!-- Current: "bg-gray-200 text-gray-900", Default: "text-gray-700 hover:text-gray-900 hover:bg-gray-50" -->
-                        <a href="/dashboard" class="text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md"  aria-current="page">
-                            <i class="fa-solid fa-house text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>
-                            Anasayfa
-                        </a>
+                <a href="/dashboard" class="text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md"  aria-current="page">
+                    <i class="fa-solid fa-house text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>
+                    Anasayfa
+                </a>
 
-                        <a href="{{ route(auth('teacher')->check() ? 'teacher.homeworks.index' : 'homeworks.index') }}" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
-                            <!-- Heroicon name: outline/view-list -->
-                            <!--
-                              Heroicon name: outline/home
+                <a href="#" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                    <!-- Heroicon name: outline/view-list -->
+                    <svg class="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                    </svg>
+                    My tasks
+                </a>
 
-                              Current: "text-gray-500", Default: "text-gray-400 group-hover:text-gray-500"
-                            -->
-                            <i class="fa-solid fa-book text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>
-                            Ödevlerim
-                        </a>
+                <a href="#" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                    <!-- Heroicon name: outline/clock -->
+                    <svg class="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Recent
+                </a>
 
-                        <a href="#" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
-                            <!-- Heroicon name: outline/clock -->
-                            <i class="fa-solid fa-pen-clip text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>
-                            Sınavlarım
-                        </a>
+                {{--                <div class="space-y-1">--}}
+                {{--                    <!-- Current: "bg-gray-200 text-gray-900", Default: "text-gray-700 hover:text-gray-900 hover:bg-gray-50" -->--}}
+                {{--                    <a href="/dashboard" class="text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md"  aria-current="page">--}}
+                {{--                        <i class="fa-solid fa-house text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>--}}
+                {{--                        Anasayfa--}}
+                {{--                    </a>--}}
 
-                        <a href="#" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
-                            <!-- Heroicon name: outline/clock -->
-                            <i class="fa-solid fa-envelope text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>
-                            Mesajlarım
-                        </a>
+                {{--                    <a href="{{ route(auth('teacher')->check() ? 'teacher.homeworks.index' : 'homeworks.index') }}" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">--}}
+                {{--                        <!-- Heroicon name: outline/view-list -->--}}
+                {{--                        <!----}}
+                {{--                          Heroicon name: outline/home--}}
 
-                        <a href="#" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
-                            <!-- Heroicon name: outline/clock -->
-                            <i class="fa-solid fa-calendar-days text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>
-                            Devamsızlık
-                        </a>
+                {{--                          Current: "text-gray-500", Default: "text-gray-400 group-hover:text-gray-500"--}}
+                {{--                        -->--}}
+                {{--                        <i class="fa-solid fa-book text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>--}}
+                {{--                        Ödevlerim--}}
+                {{--                    </a>--}}
 
+                {{--                    <a href="{{ route(auth('teacher')->check() ? 'teacher.exams.index' : 'exams.index') }}" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">--}}
+                {{--                        <!-- Heroicon name: outline/clock -->--}}
+                {{--                        <i class="fa-solid fa-pen-clip text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>--}}
+                {{--                        Sınavlarım--}}
+                {{--                    </a>--}}
 
-                        <a href="#" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
-                            <!-- Heroicon name: outline/clock -->
-                            <i class="fa-solid fa-chalkboard-user text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>
-                            Öğretmenler
-                        </a>
+                {{--                    <a href="{{ route(auth('teacher')->check() ? 'teacher.messages.index' : 'messages.index') }}" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">--}}
+                {{--                        <!-- Heroicon name: outline/clock -->--}}
+                {{--                        <i class="fa-solid fa-envelope text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>--}}
+                {{--                        Mesajlarım--}}
+                {{--                    </a>--}}
+                {{--                    <a href="{{ route(auth('teacher')->check() ? 'teacher.absenteeism.index' : 'absenteeism.index') }}" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">--}}
+                {{--                        <!-- Heroicon name: outline/clock -->--}}
+                {{--                        <i class="fa-solid fa-calendar-days text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>--}}
+                {{--                        Devamsızlık--}}
+                {{--                    </a>--}}
+                {{--                </div>--}}
 
-                    </div>
 
                 <div class="mt-8">
                     <!-- Secondary navigation -->

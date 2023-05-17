@@ -24,7 +24,6 @@ class AppLayout extends Component
     public function render(): View|Closure|string
     {
         $users = User::query()->get();
-        $teachers = Teacher::query()->get();
-        return view('components.app-layout', compact('users','teachers'));
+        return view('components.app-layout', compact('users',));
     }
 }
