@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('subject');
             $table->string('photo');
             $table->longText('content');
+            $table->string('link');
             $table->timestamp('deadline_at')->nullable();
             $table->timestamp('completed_at')->nullable();
             $table->timestamps();

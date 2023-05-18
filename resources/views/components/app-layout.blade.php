@@ -14,6 +14,8 @@
     @endauth
 </head>
 <body>
+
+
 <div class="min-h-full">
 
     <!-- Static sidebar for desktop -->
@@ -109,7 +111,7 @@
                         </a>
 
                         @can('viewAny', \App\Models\Homework::class)
-                            <a href="#" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                            <a href="/homeworks" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
                                 <!-- Heroicon name: outline/view-list -->
                                 <!--
                                   Heroicon name: outline/home
@@ -121,19 +123,19 @@
                             </a>
                         @endcan
 
-                        <a href="#" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                        <a href="/exams" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
                             <!-- Heroicon name: outline/clock -->
                             <i class="fa-solid fa-pen-clip text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>
                             Sınavlarım
                         </a>
 
-                        <a href="#" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                        <a href="/chat_rooms" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
                             <!-- Heroicon name: outline/clock -->
                             <i class="fa-solid fa-envelope text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>
                             Mesajlarım
                         </a>
 
-                        <a href="#" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                        <a href="/absences" class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
                             <!-- Heroicon name: outline/clock -->
                             <i class="fa-solid fa-calendar-days text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6 text-xl"></i>
                             Devamsızlık
@@ -184,7 +186,6 @@
     <!-- Main column -->
     <div class="lg:pl-64 flex flex-col">
         <main class="flex-1">
-
             @foreach($errors->all() as $error)
                 <div>{{$error}}</div>
             @endforeach

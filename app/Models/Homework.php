@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Homework extends Model
@@ -19,6 +20,7 @@ class Homework extends Model
         'subject',
         'photo',
         'content',
+        'link',
         'deadline_at',
         'completed_at',
     ];
@@ -36,4 +38,5 @@ class Homework extends Model
             'school_id',
         );
     }
+
 }

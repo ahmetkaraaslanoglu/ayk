@@ -25,6 +25,7 @@ class HomeworkFactory extends Factory
             'subject' => fake()->sentence(),
             'photo' => fake()->imageUrl(),
             'content' => fake()->paragraph(),
+            'link' => fake()->url,
             'deadline_at' => fake()->dateTimeBetween('now', '+1 month'),
             'completed_at' => fake()->dateTimeBetween('now', '+1 month'),
         ];

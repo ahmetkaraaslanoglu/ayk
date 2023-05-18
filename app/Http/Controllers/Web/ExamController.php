@@ -14,7 +14,6 @@ class ExamController extends Controller
     public function index()
     {
         $exams = auth()->user()->exams;
-
         return response()->view('web.exams.index', compact('exams'));
     }
 
