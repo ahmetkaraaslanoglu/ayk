@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 use Laravel\Sanctum\HasApiTokens;
 use Znck\Eloquent\Relations\BelongsToThrough;
 
@@ -79,17 +80,17 @@ class User extends Authenticatable
         );
     }
 
-    public function exams(): HasMany | BelongsToMany
+    public function exams(): HasMany | HasManyThrough
     {
         if ($this->role === Role::Teacher) {
             return $this->hasMany(Exam::class,'user_id','id');
         }
 
-        return $this->belongsToMany(
+        return $this->hasManyThrough(
             Exam::class,
-            'school_class_exams',
-            'user_id',
-            'exam_id',
+            SchoolClass::class,
+            'id',
+            'school_id',
         );
     }
 
@@ -111,6 +112,15 @@ class User extends Authenticatable
             'user_id',
             'chat_room_id',
         );
+    }
+
+    public function teachers(): Collection
+    {
+        $teachers = collect();
+        foreach (auth()->user()->school_classes as $school_class){
+            $teachers = $teachers->merge($school_class->users()->where('user_school_classes.role','teacher')->get());
+        }
+        return $teachers;
     }
 
 }
