@@ -123,4 +123,13 @@ class User extends Authenticatable
         return $teachers;
     }
 
+    public function students(array $with = []): Collection
+    {
+        $students = collect();
+        foreach (auth()->user()->school_classes as $school_class) {
+            $students = $students->merge($school_class->users()->where('user_school_classes.role','student')->with($with)->get());
+        }
+        return $students;
+    }
+
 }
