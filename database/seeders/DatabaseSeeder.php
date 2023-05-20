@@ -51,19 +51,26 @@ class DatabaseSeeder extends Seeder
                 ->where('school_id', $school->id)
                 ->where('role', Role::Student)
                 ->get(['id'])
-                ->pluck('id');
+                ->pluck('id')
+                ->shuffle();
 
             $teacherIds = User::query()
                 ->where('school_id', $school->id)
                 ->where('role', Role::Teacher)
                 ->get(['id'])
-                ->pluck('id');
+                ->pluck('id')
+                ->shuffle();
+
+
+            $classSize = intdiv($studentIds->count(), 5);  // Assuming 5 classes per school.
 
             // create 5 SchoolClass::class
             SchoolClass::factory(5)->create([
                 'school_id' => $school->id,
-            ])->each(function (SchoolClass $schoolClass) use ($studentIds, $teacherIds) {
-                foreach ($studentIds as $studentId) {
+            ])->each(function (SchoolClass $schoolClass) use (&$studentIds, $teacherIds, $classSize) {
+                $studentsForClass = $studentIds->splice(0, $classSize);
+
+                foreach ($studentsForClass as $studentId) {
                     $schoolClass->users()->attach($studentId, [
                         'role' => Role::Student->value,
                     ]);
@@ -82,11 +89,13 @@ class DatabaseSeeder extends Seeder
                     ]);
                 });
 
-                for ($i = 0; $i < rand(1, count($studentIds)); $i++) {
-                    Absence::factory()->create([
-                        'owner_id' => $teacherIds->random(),
-                        'target_id' => $studentIds->random(),
-                    ]);
+                if ($studentIds->count() > 0 && $teacherIds->count() > 0) {
+                    for ($i = 0; $i < rand(1, min($studentIds->count(), $teacherIds->count())); $i++) {
+                        Absence::factory()->create([
+                            'owner_id' => $teacherIds->random(),
+                            'target_id' => $studentIds->random(),
+                        ]);
+                    }
                 }
             });
 
@@ -162,7 +171,7 @@ class DatabaseSeeder extends Seeder
         foreach ($teachers as $teacher) {
             $student = $students->random();
             ChatRoom::factory()->create([
-                'name' => $teacher->name . ', ' . $student->name,
+//                'name' => $teacher->name . ', ' . $student->name,
                 'team_id' => null,
             ])->each(function (ChatRoom $chatRoom) use ($teacher, $student) {
                 ChatRoomMember::factory()->create([

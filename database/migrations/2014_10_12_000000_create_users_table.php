@@ -16,8 +16,8 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Lesson::class)->nullable()->default(null);
-            $table->foreignIdFor(School::class)->nullable()->default(null);
+            $table->foreignIdFor(Lesson::class)->nullable()->default(null)->references('id')->on('lessons');
+            $table->foreignIdFor(School::class)->nullable()->default(null)->references('id')->on('schools');
             $table->enum('role', array_map(fn (Role $role) => $role->value, Role::cases()))->default(Role::Guest->value);
             $table->string('name');
             $table->string('email')->unique();

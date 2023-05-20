@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('absences', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class, 'owner_id'); // teacher
-            $table->foreignIdFor(User::class, 'target_id'); // student
+            $table->foreignIdFor(User::class, 'owner_id')->references('id')->on('users'); // teacher
+            $table->foreignIdFor(User::class, 'target_id')->references('id')->on('users'); // student
             $table->enum('reason', array_map(fn (AbsenceReason $reason) => $reason->value, AbsenceReason::cases()))->nullable()->default(AbsenceReason::Other->value);
             $table->timestamp('date');
             $table->timestamps();

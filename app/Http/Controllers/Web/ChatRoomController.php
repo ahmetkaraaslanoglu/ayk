@@ -18,9 +18,7 @@ class ChatRoomController extends Controller
 
     public function show(Request $request, ChatRoom $chatRoom)
     {
-        $messages = $chatRoom->messages()->latest()->take(100)->with('user')->get();
-
-        return response()->view('web.chat_rooms.show', compact('chatRoom', 'messages'));
+        return response()->view('web.chat_rooms.show', compact('chatRoom'));
     }
 
     public function store(Request $request, ChatRoom $chatRoom)

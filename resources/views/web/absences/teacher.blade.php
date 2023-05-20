@@ -1,10 +1,10 @@
 <x-app-layout>
-    <div class="flex w-full" x-data="{classId: null}">
+    <div class="flex w-full" x-data="{openedClassId: null}">
         <div class="w-1/3">
             @foreach(auth()->user()->school_classes as $schoolClass)
                 <div
                     class="w-full p-3 bg-gray-50 transition hover:bg-gray-100 cursor-pointer"
-                    x-on:click="classId = '{{ $schoolClass->id }}'"
+                    x-on:click="openedClassId = openedClassId === '{{ $schoolClass->id }}' ? null : '{{ $schoolClass->id }}'"
                 >
                     <div>{{ $schoolClass->name }}</div>
                     <div class="text-gray-400">{{ $schoolClass->users()->where('user_school_classes.role', \App\Enums\Role::Student->value)->count() }} Öğrenci</div>
@@ -14,7 +14,7 @@
 
         <div class="w-2/3">
             @foreach(auth()->user()->school_classes as $schoolClass)
-                <div x-show="classId == '{{ $schoolClass->id }}'">
+                <div x-show="openedClassId === '{{ $schoolClass->id }}'">
                     <table>
                         <thead>
                         <tr>

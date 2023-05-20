@@ -13,10 +13,12 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Znck\Eloquent\Relations\BelongsToThrough;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable , Messageable;
+    use \Znck\Eloquent\Traits\BelongsToThrough;
 
     /**
      * The attributes that are mass assignable.
@@ -62,24 +64,25 @@ class User extends Authenticatable
         );
     }
 
-    public function homeworks(): HasMany | BelongsToMany
+    public function homeworks(): HasMany | BelongsToThrough
     {
         if ($this->role === Role::Teacher) {
             return $this->hasMany(Homework::class);
         }
 
-        return $this->belongsToMany(
+        return $this->belongsToThrough(
             Homework::class,
-            'school_class_homeworks',
-            'user_id',
-            'homework_id',
-        );
+            SchoolClass::class,
+            'soft',
+            'asd',
+
+        )->dd();
     }
 
     public function exams(): HasMany | BelongsToMany
     {
         if ($this->role === Role::Teacher) {
-            return $this->hasMany(Exam::class);
+            return $this->hasMany(Exam::class,'user_id','id');
         }
 
         return $this->belongsToMany(
@@ -109,4 +112,5 @@ class User extends Authenticatable
             'chat_room_id',
         );
     }
+
 }

@@ -26,6 +26,7 @@
                     <div
                         class="fixed inset-0"
                         x-show="open"
+                        style="display: none;"
                         x-transition:enter="transition ease-out duration-300"
                         x-transition:enter-start="opacity-0"
                         x-transition:enter-end="opacity-100"
@@ -123,7 +124,7 @@
                         <dt class="sr-only">Role</dt>
                         <dd class="text-gray-500 text-sm">Teslim Tarihi : {{$homework->deadline_at}}</dd>
                         <dd class="mt-3">
-                            <span class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">Öğretmen Adı</span>
+                            <span class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">{{$homework->user->name}}</span>
                         </dd>
                     </dl>
                 </a>

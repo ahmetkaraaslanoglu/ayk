@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('user_school_classes', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
-            $table->foreignIdFor(SchoolClass::class);
+            $table->foreignIdFor(User::class)->references('id')->on('users');
+            $table->foreignIdFor(SchoolClass::class)->references('id')->on('school_classes');
             $table->enum('role', ['student', 'teacher'])->nullable()->default('student');
             $table->timestamps();
         });

@@ -19,7 +19,7 @@ class ChatRoomFactory extends Factory
     {
         return [
             'team_id' => fake()->boolean() ? Team::factory() : null,
-            'name' => fake()->sentence(),
+            'message_header' => fake()->company(),
         ];
     }
 }

@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('chat_room_messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(ChatRoom::class);
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(ChatRoom::class)->references('id')->on('chat_rooms');
+            $table->foreignIdFor(User::class)->references('id')->on('users');
             $table->longText('message');
             $table->timestamps();
         });

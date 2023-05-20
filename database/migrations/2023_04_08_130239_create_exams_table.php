@@ -16,8 +16,8 @@ return new class extends Migration
     {
         Schema::create('exams', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(School::class);
-            $table->foreignIdFor(User::class); // teacher
+            $table->foreignIdFor(School::class)->references('id')->on('schools');
+            $table->foreignIdFor(User::class)->references('id')->on('users'); // teacher
             $table->string('link');
             $table->timestamp('deadline_at')->nullable();
             $table->timestamps();

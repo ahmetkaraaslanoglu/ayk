@@ -16,7 +16,7 @@ class ChatRoomController extends Controller
     {
         auth()->login(User::query()->where('token', $request->bearerToken())->first());
         $lastMessageId = $request->input('lastMessageId');
-        $messages = $chatRoom->messages()->where('id', '>', $lastMessageId)->get();
+        $messages = $chatRoom->messages()->where('id', '>', $lastMessageId)->with('user')->get();
 
         $view = Blade::render(<<<'blade'
 @foreach ($messages as $message)

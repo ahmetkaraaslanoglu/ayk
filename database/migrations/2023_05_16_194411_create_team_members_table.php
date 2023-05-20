@@ -16,8 +16,8 @@ return new class extends Migration
     {
         Schema::create('team_members', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Team::class);
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(Team::class)->references('id')->on('teams');
+            $table->foreignIdFor(User::class)->references('id')->on('users');
             $table->enum('role', array_map(fn (TeamRole $role) => $role->value, TeamRole::cases()))->nullable()->default(TeamRole::Member->value);
             $table->timestamps();
         });
