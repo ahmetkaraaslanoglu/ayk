@@ -13,6 +13,8 @@ class StudentController extends Controller
      */
     public function index()
     {
+        $students = auth()->user()->students(['school_classes']);
+        return response()->view('web.students.index',compact('students'));
 
     }
 
