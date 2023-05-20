@@ -21,15 +21,7 @@ class ChatRoomMessage extends Component
      */
     public function render(): View|Closure|string
     {
-        return <<<'blade'
-<div class="{{
-    $chatRoomMessage->user_id == auth()->id()
-    ? 'bg-red-500 p-3'
-    : 'bg-gray-100 p-3'
-}}">
-    <div>{{ $chatRoomMessage->user->name }}</div>
-    <div>{{ $chatRoomMessage->message }}</div>
-</div>
-blade;
+        $chatRoomMessage = $this->chatRoomMessage;
+        return view('components.chat-room-message', compact('chatRoomMessage'));
     }
 }

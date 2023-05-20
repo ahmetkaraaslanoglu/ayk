@@ -9,16 +9,12 @@ use Illuminate\Http\Request;
 
 class ChatRoomController extends Controller
 {
-    public function index()
+    public function index(Request $request, $chatRoom = null)
     {
         $rooms = auth()->user()->chat_rooms;
+        $chatRoom = $chatRoom != null ? ChatRoom::query()->findOrFail($chatRoom) : null;
 
-        return response()->view('web.chat_rooms.index', compact('rooms'));
-    }
-
-    public function show(Request $request, ChatRoom $chatRoom)
-    {
-        return response()->view('web.chat_rooms.show', compact('chatRoom'));
+        return response()->view('web.chat_rooms.index', compact('rooms', 'chatRoom'));
     }
 
     public function store(Request $request, ChatRoom $chatRoom)

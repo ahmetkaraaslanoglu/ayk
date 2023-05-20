@@ -3,29 +3,58 @@ import Alpine from 'alpinejs'
 
 window.Alpine = Alpine
 
-Alpine.start()
+let chatInterval = null;
 
-if (document.getElementById('chat')) {
+const openChat = function (id) {
     const token = document.head.querySelector('meta[name="token"]').content;
-    const chatRoomId = document.getElementById('chat').getAttribute('data-chat-room-id')
-    let lastMessageId = document.getElementById('chat').getAttribute('data-last-message-id');
-    const chat = document.getElementById('chat');
-    const requestLastMessage = function () {
-        axios.get('/api/chat_rooms/'+chatRoomId+'/last?lastMessageId=' + lastMessageId, {
-            headers: {
-                Authorization: 'Bearer ' + token,
-            }
-        }).then(response => {
+    console.log(id)
+    const chatRoomId = id;
+    let lastMessageId = null;
+    const chatDiv = document.getElementById('chat');
+    chatDiv.innerHTML = '';
+    const chatLoading = document.getElementById('chat-loading');
+
+    const scrollToBottom = function () {
+        chatDiv.parentElement.scrollTop = chatDiv.parentElement.scrollHeight;
+    }
+
+    const requestLastMessage = async function () {
+        if (lastMessageId === null) {
+            chatLoading.style.display = 'flex';
+        }
+
+        try {
+            const response = await axios.get('/api/chat_rooms/'+chatRoomId+'/last?lastMessageId=' + lastMessageId, {
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                }
+            });
+
             if (response.data) {
+                let scrollRequired = lastMessageId === null;
+
                 lastMessageId = response.data.lastMessageId;
-                chat.innerHTML = chat.innerHTML + response.data.html;
-                if(!(chat.scrollTop < chat.scrollHeight)){
-                    chat.scrollTop = chat.scrollHeight;
+                const newData = chatDiv.innerHTML + response.data.html;
+                if (newData !== chatDiv.innerHTML) {
+                    chatDiv.innerHTML = newData;
+                }
+
+                if (! (chatDiv.scrollTop < chatDiv.scrollHeight) || scrollRequired) {
+                    scrollToBottom();
                 }
             }
-        });
+        } catch (error) {
+            console.error(error);
+        } finally {
+            chatLoading.style.display = 'none';
+        }
     };
 
-    setInterval(() => requestLastMessage(), 1000);
-    chat.scrollTop = chat.scrollHeight;
-}
+    clearInterval(chatInterval);
+    chatInterval = setInterval(() => requestLastMessage(), 1000);
+    chatLoading.style.display = 'flex';
+};
+
+window.openChat = openChat;
+
+Alpine.start()

@@ -20,14 +20,7 @@ class ChatRoomController extends Controller
 
         $view = Blade::render(<<<'blade'
 @foreach ($messages as $message)
-<div class="{{
-    $message->user_id == auth()->id()
-    ? 'bg-red-500 p-3'
-    : 'bg-gray-100 p-3'
-}}">
-    <div>{{ $message->user->name }}</div>
-    <div>{{ $message->message }}</div>
-</div>
+<x-chat-room-message :chat-room-message="$message" />
 @endforeach
 blade, compact('messages'));
 
