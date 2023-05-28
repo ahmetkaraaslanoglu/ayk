@@ -20,6 +20,8 @@ class TeamFactory extends Factory
         return [
             'user_id' => User::factory(),
             'name' => $this->faker->word(),
+            'description' => $this->faker->sentence(),
+            'image_path' => $this->faker->imageUrl(),
         ];
     }
 }

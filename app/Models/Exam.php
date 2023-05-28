@@ -23,4 +23,9 @@ class Exam extends Model
     protected $casts = [
         'deadline_at' => 'datetime',
     ];
+
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class,'id','user_id');
+    }
 }

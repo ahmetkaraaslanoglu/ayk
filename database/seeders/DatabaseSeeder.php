@@ -11,6 +11,8 @@ use App\Models\ChatRoomMessage;
 use App\Models\Exam;
 use App\Models\Homework;
 use App\Models\Lesson;
+use App\Models\Post;
+use App\Models\PostComment;
 use App\Models\School;
 use App\Models\SchoolClass;
 use App\Models\SchoolClassExam;
@@ -19,6 +21,7 @@ use App\Models\SchoolClassLesson;
 use App\Models\Team;
 use App\Models\TeamMember;
 use App\Models\User;
+use App\Models\UserSchoolClass;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -28,179 +31,149 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Lesson::factory(100)->create();
+        $lessons = [
+            'Matematik',
+            'Türkçe',
+            'Tarih',
+            'Coğrafya',
+            'Felsefe',
+            'Biyoloji',
+            'Kimya',
+            'Fizik',
+            'Görsel Sanatlar',
+            'Din Kültürü ve Ahlak Bilgisi',
+            'İngilizce',
+            'Almanca',
+            'Fransızca',
+        ];
 
-        School::factory(15)->create()->each(function (School $school) {
-            // create 5 User::class with teacher role
-            for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < count($lessons); $i++) {
+            Lesson::factory()->create([
+                'name' => $lessons[$i],
+            ]);
+        }
+
+        School::factory()->create([
+            'name' => 'Test School 1',
+            'email' => 'ananınamı@example.com'
+        ])->each(function ($school) use ($lessons) {
+
+            for ($i = 0; $i<13 ; $i++){
                 User::factory()->create([
                     'role' => Role::Teacher->value,
                     'school_id' => $school->id,
-                    'lesson_id' => Lesson::query()->inRandomOrder()->first(['id'])->id,
+                    'lesson_id' => $i + 1,
                 ]);
             }
 
-            // create 20 User::class with student role
-            User::factory(20)->create([
+            User::factory(10)->create([
                 'role' => Role::Student->value,
                 'school_id' => $school->id,
                 'lesson_id' => null,
             ]);
 
-            $studentIds = User::query()
-                ->where('school_id', $school->id)
-                ->where('role', Role::Student)
-                ->get(['id'])
-                ->pluck('id')
-                ->shuffle();
-
-            $teacherIds = User::query()
-                ->where('school_id', $school->id)
-                ->where('role', Role::Teacher)
-                ->get(['id'])
-                ->pluck('id')
-                ->shuffle();
-
-
-            $classSize = intdiv($studentIds->count(), 5);  // Assuming 5 classes per school.
-
-            // create 5 SchoolClass::class
-            SchoolClass::factory(5)->create([
+            $var = rand(1,2);
+            SchoolClass::factory(2)->create([
                 'school_id' => $school->id,
-            ])->each(function (SchoolClass $schoolClass) use (&$studentIds, $teacherIds, $classSize) {
-                $studentsForClass = $studentIds->splice(0, $classSize);
+                'name' => 'Test Class ' . $var,
+            ]);
 
-                foreach ($studentsForClass as $studentId) {
-                    $schoolClass->users()->attach($studentId, [
-                        'role' => Role::Student->value,
-                    ]);
-                }
-
-                foreach ($teacherIds as $teacherId) {
-                    $schoolClass->users()->attach($teacherId, [
-                        'role' => Role::Teacher->value,
-                    ]);
-                }
-
-                Lesson::query()->inRandomOrder()->take(5)->each(function (Lesson $lesson) use ($schoolClass) {
-                    SchoolClassLesson::factory()->create([
-                        'school_class_id' => $schoolClass->id,
-                        'lesson_id' => $lesson->id,
-                    ]);
-                });
-
-                if ($studentIds->count() > 0 && $teacherIds->count() > 0) {
-                    for ($i = 0; $i < rand(1, min($studentIds->count(), $teacherIds->count())); $i++) {
-                        Absence::factory()->create([
-                            'owner_id' => $teacherIds->random(),
-                            'target_id' => $studentIds->random(),
-                        ]);
-                    }
-                }
-            });
-
-            // create 5 homework
-            Homework::factory(5)->create([
-                'school_id' => $school->id,
-                'user_id' => $teacherIds->random(),
-            ])->each(function (Homework $homework) use ($school, $teacherIds) {
-                // create 5 SchoolClassHomework::class
-                SchoolClassHomework::factory(5)->create([
-                    'school_class_id' => $school->id,
-                    'homework_id' => $homework->id,
-                ]);
-            });
-
-            // create 5 exams
-            Exam::factory(5)->create([
-                'school_id' => $school->id,
-                'user_id' => $teacherIds->random(),
-            ])->each(function (Exam $exam) use ($school, $teacherIds) {
-                // create 5 SchoolClassExam::class
-                SchoolClassExam::factory(5)->create([
-                    'school_class_id' => $school->id,
-                    'exam_id' => $exam->id,
-                ]);
-            });
-        });
-
-        Team::factory(2)->create()->each(function (Team $team) {
-            $userIds = User::query()
-                ->inRandomOrder()
-                ->take(10)
-                ->get(['id'])
-                ->pluck('id');
-
-            foreach ($userIds as $userId) {
-                TeamMember::factory()->create([
-                    'team_id' => $team->id,
-                    'user_id' => $userId,
+            for ($i = 0; $i<13; $i++){
+                UserSchoolClass::factory()->create([
+                    'school_class_id' => 1,
+                    'user_id' => $i + 1,
+                    'role' => Role::Teacher->value,
                 ]);
             }
 
-            ChatRoom::factory()->create([
-                'team_id' => $team->id,
-            ])->each(function (ChatRoom $chatRoom) use ($team) {
-                $teamUserIds = TeamMember::query()
-                    ->where('team_id', $team->id)
-                    ->get(['user_id'])
-                    ->pluck('user_id');
-
-                foreach ($teamUserIds as $userId) {
-                    ChatRoomMember::query()->create([
-                        'chat_room_id' => $chatRoom->id,
-                        'user_id' => $userId,
-                    ])->each(function (ChatRoomMember $chatRoomMember) {
-                        ChatRoomMessage::factory(5)->create([
-                            'chat_room_id' => $chatRoomMember->chat_room_id,
-                            'user_id' => $chatRoomMember->user_id,
-                        ]);
-                    });
-                }
-            });
-        });
-
-        $teachers = User::query()
-            ->where('role', Role::Teacher)
-            ->get(['id', 'name']);
-
-        $students = User::query()
-            ->where('role', Role::Student)
-            ->get(['id', 'name']);
-
-        foreach ($teachers as $teacher) {
-            $student = $students->random();
-            ChatRoom::factory()->create([
-//                'name' => $teacher->name . ', ' . $student->name,
-                'team_id' => null,
-            ])->each(function (ChatRoom $chatRoom) use ($teacher, $student) {
-                ChatRoomMember::factory()->create([
-                    'chat_room_id' => $chatRoom->id,
-                    'user_id' => $teacher->id,
+            for ($i = 13; $i<23; $i++){
+                UserSchoolClass::factory()->create([
+                    'school_class_id' => 1,
+                    'user_id' => $i + 1,
+                    'role' => Role::Student->value,
                 ]);
+            }
 
-                ChatRoomMember::factory()->create([
-                    'chat_room_id' => $chatRoom->id,
-                    'user_id' => $student->id,
+            for ($i = 0; $i<13; $i++){
+                SchoolClassLesson::factory()->create([
+                    'school_class_id' => 1,
+                    'lesson_id' => $i+1,
                 ]);
+            }
 
-                for ($i = 0; $i < rand(1, 10); $i++) {
-                    ChatRoomMessage::factory()->create([
-                        'chat_room_id' => $chatRoom->id,
-                        'user_id' => rand(0, 1) == 0 ? $teacher->id : $student->id,
+            for ($i = 0; $i<13; $i++){
+                Homework::factory()->create([
+                    'school_id' => 1,
+                    'user_id' => $i + 1,
+                ]);
+            }
+
+            for ($i = 0; $i<13; $i++){
+                SchoolClassHomework::factory()->create([
+                    'school_class_id' => 1,
+                    'homework_id' => $i + 1,
+                ]);
+            }
+
+            for ($i = 0; $i<13; $i++){
+                Exam::factory()->create([
+                    'school_id' => 1,
+                    'user_id' => $i + 1,
+                ]);
+            }
+
+            for ($i = 0; $i<13; $i++){
+                SchoolClassExam::factory()->create([
+                    'school_class_id' => 1,
+                    'exam_id' => $i + 1,
+                ]);
+            }
+
+            for ($j = 0; $j<13; $j++){
+                for ($i = 0; $i<10; $i++){
+                    Absence::factory()->create([
+                        'owner_id' => $j + 1,
+                        'target_id' => $i + 1,
                     ]);
                 }
-            });
-        }
+            }
 
-        foreach (Role::cases() as $role) {
-            User::factory()->create([
-                'role' => $role->value,
-                'email' => $role->value . '@example.com',
-                'name' => $role->value . ' User',
-                'school_id' => null,
-                'lesson_id' => null,
-            ]);
-        }
+            for ($i = 0; $i<10; $i++){
+                ChatRoom::factory()->create([
+                    'team_id' => null,
+                    'message_header' => 'Test Chat Room ' . $i+1,
+                ]);
+            }
+            for ($i = 0; $i<10; $i++){
+                ChatRoomMember::factory()->create([
+                    'chat_room_id' => $i + 1,
+                    'user_id' => $i + 1,
+                ]);
+                ChatRoomMember::factory()->create([
+                    'chat_room_id' => $i + 1,
+                    'user_id' => $i + 2,
+                ]);
+            }
+
+            for ($i = 0; $i<10; $i++){
+                ChatRoomMessage::factory()->create([
+                    'chat_room_id' => $i + 1,
+                    'user_id' => $i + 1,
+                    'message' => 'Test Message ' . $i+1,
+                ]);
+                ChatRoomMessage::factory()->create([
+                    'chat_room_id' => $i + 1,
+                    'user_id' => $i + 2,
+                    'message' => 'Test Message ' . $i+2,
+                ]);
+
+            }
+
+
+
+
+
+
+        });
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Enums\Role;
 use App\Http\Controllers\Controller;
 use App\Models\Homework;
 use App\Models\SchoolClassHomework;
@@ -20,7 +21,17 @@ class HomeworkController extends Controller
      */
     public function index(): Response
     {
-        $homeworks = auth()->user()->homeworks;
+        if (auth()->user()->role === Role::Teacher) {
+            $homeworks = auth()->user()->teacherHomeworks;
+        }
+        else if (auth()->user()->role === Role::Student) {
+            $homeworks = auth()->user()->studentHomeworks;
+        } else {
+            $homeworks = null;
+        }
+
+
+
 
         return response()->view('web.homeworks.index', compact('homeworks'));
     }
@@ -39,6 +50,7 @@ class HomeworkController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'lesson' => 'required',
             'subject' => 'required',
             'content' => 'required',
             'deadline_at' => 'required',
@@ -46,12 +58,31 @@ class HomeworkController extends Controller
             'classes.*' => 'exists:school_classes,id',
         ]);
 
+        $photo = match($validated['lesson']){
+            'Matematik' => asset('/lessons_photos/math.jpg'),
+            'İngilizce' => asset('/lessons_photos/en.jpg'),
+            'Türkçe' => asset('/lessons_photos/tr.jpg'),
+            'Tarih' => asset('/lessons_photos/history.jpg'),
+            'Coğrafya' => asset('/lessons_photos/geography.jpg'),
+            'Felsefe' => asset('/lessons_photos/pholosia.jpg'),
+            'Biyoloji' => asset('/lessons_photos/biology.jpg'),
+            'Kimya' => asset('/lessons_photos/chemisty.jpg'),
+            'Fizik' => asset('/lessons_photos/physics.jpg'),
+            'Din Kültürü ve Ahlak Bilgisi' => asset('/lessons_photos/pholosia.jpg'),
+            'Almanca' => asset('/lessons_photos/de.jpg'),
+            'Fransızca' => asset('/lessons_photos/fr.jpg'),
+        };
+
+
+
         $homework = Homework::query()->create(array_merge($validated,[
             'school_id' => auth()->user()->school_id,
             'user_id' => auth()->user()->id,
-            'photo' => 'https://via.placeholder.com/640x480.png/00dd00?text=porro',
+            'photo' => $photo,
             'completed_at' => null,
         ]));
+
+
 
         foreach ($validated['classes'] as $classId){
             SchoolClassHomework::query()->create([
@@ -59,7 +90,6 @@ class HomeworkController extends Controller
                 'school_class_id' => $classId,
             ]);
         }
-
         return redirect()->back();
     }
 

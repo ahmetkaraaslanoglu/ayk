@@ -23,7 +23,6 @@ class AppLayout extends Component
      */
     public function render(): View|Closure|string
     {
-        $users = User::query()->get();
-        return view('components.app-layout', compact('users',));
+        return view('components.app-layout');
     }
 }

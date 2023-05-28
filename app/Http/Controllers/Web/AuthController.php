@@ -2,18 +2,27 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Enums\Role;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
 
-    public function view()
+    public function view(): \Illuminate\Http\Response
     {
         return response()->view('web.auth.login');
     }
 
-    public function login(Request $request)
+    public function register_view(): \Illuminate\Http\Response
+    {
+        return response()->view('web.auth.register');
+    }
+
+
+    public function login(Request $request): \Illuminate\Http\RedirectResponse
     {
         $validated = $request->validate([
            'email' => 'required|email',
@@ -23,12 +32,39 @@ class AuthController extends Controller
         auth()->logout();
 
         if (auth()->attempt($validated)){
-            return redirect()->to('/dashboard');
+            return redirect()->to('/chat_rooms');
         }
 
-        return redirect()->route('/login')->withErrors([
+        return redirect()->back()->withErrors([
            'login' => 'Kullanıcı adı veya parola yanlış...'
         ]);
+    }
+
+    public function register(Request $request): \Illuminate\Http\RedirectResponse
+    {
+
+        $validated = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required',
+        ]);
+
+        $token = Str::random(40);
+
+        $user = User::query()->create([
+            'lesson_id' => null,
+            'role' => Role::Guest->value,
+            'school_id' => null,
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => bcrypt($validated['password']),
+            'profile_photo_url' => asset('/unknown_user.png'),
+            'token' => $token,
+        ]);
+
+
+
+        return redirect()->to('/login');
     }
 
     public function logout()
@@ -37,38 +73,4 @@ class AuthController extends Controller
         return redirect()->to('/');
     }
 
-    public function view2(Request $request, string $type)
-    {
-        abort_unless(in_array($type, ['user', 'student', 'teacher']), 400);
-        return response()->view('web.auth.student_login', compact('type'));
-    }
-
-    public function login2(Request $request, string $type)
-    {
-        abort_unless(in_array($type, ['user', 'student', 'teacher']), 400);
-
-        $validated = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
-        auth('user')->logout();
-        auth('teacher')->logout();
-        auth('student')->logout();
-
-
-        if (auth($request->input('type'))->attempt($validated)) {
-            return redirect()->to('/dashboard');
-        }
-
-        return redirect()->route('login', $type)->withErrors([
-            'auth' => 'şifre yada eposta yanlıi'
-        ]);
-    }
-
-    public function logout2()
-    {
-        auth('student')->logout();
-        return redirect()->to('/');
-    }
 }

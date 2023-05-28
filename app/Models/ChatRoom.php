@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -15,7 +16,7 @@ class ChatRoom extends Model
 
     protected $fillable = [
         'team_id',
-        'name',
+        'message_header',
     ];
 
     public function team(): HasOne
@@ -30,5 +31,14 @@ class ChatRoom extends Model
     public function messages(): HasMany
     {
         return $this->hasMany(ChatRoomMessage::class);
+    }
+
+    public function members(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            User::class,
+            'chat_room_members',
+
+        );
     }
 }

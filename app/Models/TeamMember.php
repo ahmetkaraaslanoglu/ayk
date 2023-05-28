@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\TeamRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class TeamMember extends Model
 {
@@ -21,4 +22,9 @@ class TeamMember extends Model
     protected $casts = [
         'role' => TeamRole::class,
     ];
+
+    public function team(): HasOne
+    {
+        return $this->hasOne(Team::class, 'id', 'team_id');
+    }
 }

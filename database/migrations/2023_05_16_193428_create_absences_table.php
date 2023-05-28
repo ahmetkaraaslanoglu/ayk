@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class, 'owner_id')->references('id')->on('users'); // teacher
             $table->foreignIdFor(User::class, 'target_id')->references('id')->on('users'); // student
-            $table->enum('reason', array_map(fn (AbsenceReason $reason) => $reason->value, AbsenceReason::cases()))->nullable()->default(AbsenceReason::Other->value);
+            $table->enum('reason', array_map(fn (AbsenceReason $reason) => $reason->value, AbsenceReason::cases()))->nullable()->default(AbsenceReason::Ozurlu->value);
             $table->timestamp('date');
             $table->timestamps();
         });

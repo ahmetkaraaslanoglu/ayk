@@ -15,9 +15,9 @@ class AbsenceController extends Controller
     public function index()
     {
         $absences = auth()->user()->absences;
-
-        $view = auth()->user()->role === 'student' ? 'web.absences.student' : 'web.absences.teacher';
-        return response()->view($view, compact('absences'));
+        $students = auth()->user()->students(['school_classes']);
+        $view = auth()->user()->role === Role::Student ? 'web.absences.student' : 'web.absences.teacher';
+        return response()->view($view, compact('absences','students'));
     }
 
     /**

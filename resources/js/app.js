@@ -57,4 +57,15 @@ const openChat = function (id) {
 
 window.openChat = openChat;
 
+function toggleClassOpacity(checkbox) {
+    const label = checkbox.parentElement.querySelector(".class-label");
+        if (checkbox.checked) {
+            label.style.opacity = 0.5;
+        } else {
+            label.style.opacity = 1;
+        }
+}
+
+window.toggleClassOpacity = toggleClassOpacity;
+
 Alpine.start()

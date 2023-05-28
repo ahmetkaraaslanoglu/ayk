@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="mt-4">
-                        <form class="max-w-md mx-auto" method="post">
+                        <form class="max-w-md mx-auto" action="{{route('web.chat_rooms.store')}}" method="post">
                             @csrf
                             <div class="mb-4">
                                 <label class="block text-gray-700 font-bold mb-2" for="email">
@@ -47,16 +47,16 @@
                                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="E-posta" name="email">
                             </div>
                             <div class="mb-4">
-                                <label class="block text-gray-700 font-bold mb-2" for="title">
+                                <label class="block text-gray-700 font-bold mb-2" for="message_header">
                                     Mesaj başlığı:
                                 </label>
-                                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" placeholder="Başlık" name="title">
+                                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="message_header" type="text" placeholder="Başlık" name="message_header">
                             </div>
                             <div class="mb-4">
                                 <label class="block text-gray-700 font-bold mb-2" for="message">
                                     Mesajınız:
                                 </label>
-                                <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="message" rows="5" placeholder="Mesajınızı girin" name="content"></textarea>
+                                <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="message" rows="5" placeholder="Mesajınızı girin" name="message"></textarea>
                             </div>
                             <div class="flex items-center justify-end">
                                 <button id="send-button" class="bg-purple-600 hover:bg-purple-800 transition text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
@@ -85,7 +85,7 @@
                             href="/chat_rooms/{{ $room->id }}"
                             :class="{'bg-gray-100': chat == '{{ $room->id }}'}"
                         >
-                            <div>{{ $room->team_id != null ? $room->team->name.' Takım Sohbeti' : $room->message_header}}</div>
+{{--                            <div>{{ $room->team_id != null ? $room->team->name.' Takım Sohbeti' : $room->message_header}}</div>--}}
                             <div href="{{ route('web.chat_rooms.index', $room) }}">{{ $room->message_header }}</div>
                         </a>
                     @endforeach

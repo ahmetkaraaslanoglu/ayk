@@ -16,8 +16,23 @@ class LessonFactory extends Factory
      */
     public function definition(): array
     {
+        $lessons = [
+            'Matematik',
+            'Türkçe',
+            'Tarih',
+            'Coğrafya',
+            'Felsefe',
+            'Biyoloji',
+            'Kimya',
+            'Fizik',
+            'Görsel Sanatlar',
+            'Din Kültürü ve Ahlak Bilgisi',
+            'İngilizce',
+            'Almanca',
+            'Fransızca',
+        ];
         return [
-            'name' => fake()->sentence(),
+            'name' => $lessons[array_rand($lessons)],
         ];
     }
 }

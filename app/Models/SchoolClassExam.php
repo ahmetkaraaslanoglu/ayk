@@ -16,4 +16,14 @@ class SchoolClassExam extends Model
         'school_class_id',
         'exam_id',
     ];
+
+    public function exam(): HasOne
+    {
+        return $this->hasOne(Exam::class, 'id', 'exam_id');
+    }
+
+    public function school_class(): HasOne
+    {
+        return $this->hasOne(SchoolClass::class, 'id', 'school_class_id');
+    }
 }

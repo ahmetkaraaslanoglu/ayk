@@ -16,6 +16,8 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->references('id')->on('users');
             $table->string('name');
+            $table->string('description');
+            $table->string('image_path')->nullable();
             $table->timestamps();
         });
     }
